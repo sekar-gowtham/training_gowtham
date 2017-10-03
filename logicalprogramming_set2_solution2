@@ -1,0 +1,41 @@
+#include<conio.h>
+#include<ctype.h>
+#include<stdio.h>
+int g_digit=0;
+int g_vowels=0;
+int g_consonants=0;
+int g_space=0;
+
+void calc(char str[]){
+int i;
+	for(i=0;str[i]!='\0';i++){
+	if (isdigit(str[i])){      //to check the character is digits or not
+		g_digit++;
+		}
+	else if (isalpha(str[i])){
+		if (str[i]=='a'||str[i]=='e'||str[i]=='i'||str[i]=='o'||str[i]=='u'||
+		    str[i]=='A'||str[i]=='E'||str[i]=='I'||str[i]=='O'||str[i]=='U')
+		g_vowels++;             // to check the character is vowels or not
+		else
+		g_consonants++;         // increase the count of consonants
+		}
+	else if(str[i]==' ')
+	g_space++;
+
+	}
+}
+void display(){
+	printf("vowels %d",g_vowels);
+	printf("\nconsonants %d",g_consonants);
+	printf("\ndigits %d",g_digit);
+	printf("\nspace %d",g_space);
+}
+void main(){
+	char str[50];
+	clrscr();
+	printf("Enter string ");
+	gets(str);               // get the string from the user
+	calc(str);
+	display();               //display the counts
+getch();
+}
