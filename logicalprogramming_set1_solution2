@@ -1,0 +1,47 @@
+#include<conio.h>
+#include<stdio.h>
+int get_int()
+{
+	int num=0;
+	int ret=0;
+	ret=scanf("%d",&num);
+	if (ret!=1){
+	printf("enter valid number");
+	scanf("%s");
+	num= get_int();
+	}  //recall the function if char is entered instead of int
+
+	else if (num<0){
+	printf("enter positive number ");
+	num= get_int();
+	}  //recall the function if negative number is entered instead of positive
+
+return num;
+}
+
+void PrintSeries(int limit){
+int count=0;
+int number=0;
+while(count<limit){
+	switch(count%2){  //the constant 2 is used to find whether odd or even position
+	case 0:
+		printf(" %d",number=number+1);  //print odd position of the series
+		break;
+	case 1:
+		printf(" %d",number=number+2);  //print even position of the series
+		break;
+	default:
+		printf("The series completed");
+	}
+count++;
+}  //executed until count value matches the given limit
+}
+
+void main(){
+int limit=0;
+clrscr();
+printf("Enter the Limit: ");
+limit=get_int();
+PrintSeries(limit);  //call the function to print the series
+getch();
+}
