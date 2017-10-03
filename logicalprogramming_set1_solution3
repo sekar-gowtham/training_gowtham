@@ -1,0 +1,43 @@
+#include<conio.h>
+#include<stdio.h>
+int get_int()
+{
+	int num=0;
+	int ret=0;
+	ret=scanf("%d",&num);
+	if (ret!=1){
+	printf("enter valid number");
+	scanf("%s");
+	num= get_int();
+	}  //recall the function if char is entered instead of int
+
+	else if (num<0){
+	printf("enter positive number ");
+	num= get_int();
+	}  //recall the function if negative number is entered instead of positive
+
+return num;
+}
+
+int FindSum(int num)
+{
+	int digit=0;
+	int sum=0;
+	while(num>0){
+		digit=num%10;
+		num=num/10;
+		sum=sum+digit;
+		}
+	return sum;
+}
+
+void main(){
+int total=0;
+int number=0;
+clrscr();
+printf("Enter the Number: ");
+number=get_int();
+total=FindSum(number);
+printf("The sum is %d",total);
+getch();
+}
