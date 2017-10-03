@@ -1,0 +1,71 @@
+#include<conio.h>
+#include<stdio.h>
+int uid[]={1,2,3,7,10};
+int pwd[]={123,345,567,934,894};
+int g_uid=0;
+int g_pwd=0;
+int g_index=0;
+int g_flag=0;
+int g_max=3;
+
+int get_int()
+{
+	int num=0;
+	int ret=0;
+	ret=scanf("%d",&num);
+	if (ret!=1){
+	printf("Enter ID ");
+	scanf("%s");
+	num= get_int();
+	}  //recall the function if char is entered instead of int
+	else if (num<0){
+	printf("Enter valid ID ");
+	num= get_int();
+	}  //recall the function if negative number is entered instead of positive
+return num;
+}
+
+void CheckUid(){
+	printf("Enter user id: ");
+	g_uid=get_int();
+	for (g_index=0;g_index<sizeof(uid);g_index++){
+		if (uid[g_index]==g_uid){
+			break;
+			}   //compare to get index of user id
+		}
+	if(sizeof(uid)==g_index){
+	CheckUid();
+	}    //call the function until we get valid user id
+}
+
+void CheckPwd(){
+	int r=0;
+	while (g_flag<g_max)
+	{
+	printf("\nenter password ");
+	r=scanf("%d",&g_pwd);
+	if(r!=1)
+	{
+		scanf("%s");
+		g_flag++;
+	 }
+	 else if (g_pwd==pwd[g_index])
+	 {
+		printf("Welcome %d",uid[g_index]);
+		g_flag=9;
+		break;
+	 }
+	 else
+	 g_flag++;
+
+}
+if(g_flag==g_max)
+printf("All 3 attempts failed,Try again after some time");
+}
+
+void main(){
+clrscr();
+CheckUid();
+CheckPwd();
+getch();
+}
