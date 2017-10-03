@@ -6,7 +6,7 @@ int get_int()
 	int ret=0;
 	ret=scanf("%d",&num);
 	if (ret!=1){
-	printf("enter valid number");
+	printf("Enter valid number");
 	scanf("%s");
 	num= get_int();
 	}  //recall the function if char is entered instead of int
