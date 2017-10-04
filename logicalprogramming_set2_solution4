@@ -1,0 +1,31 @@
+#include<conio.h>
+#include<stdio.h>
+int g_max=0;
+int g_count=0;
+void maximumElements(int arr[],int start,int size){
+	int count=0,i=0;
+	if(start<size-1){
+		for(i=start+1;i<size;i++){
+			if(arr[start]==arr[i]){
+				count++;
+			}
+		}
+		if(g_count<count){
+		g_max=arr[start];
+		g_count=count;
+		}
+	maximumElements(arr,start+1,size);
+	}
+}
+
+void main(){
+	int a[50],size=0,i=0;
+	printf("Enter length of an array ");
+	scanf("%d",&size);
+	printf("Enter array ");
+	for(i=0;i<size;i++)
+		scanf("%d",&a[i]);
+	maximumElements(a,0,size);
+	printf("Maximum element is %d",g_max);
+getch();
+}
