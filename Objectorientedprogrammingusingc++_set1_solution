@@ -19,7 +19,7 @@
    Structure:
         structure object is created on Stack memory
         Default access specifier is Public
-        structure cannot inherit another structure with public as default
+        structure can inherit another structure with public as default
         
 7) The class name had to change while creating object as
     pilot *george =new pilot();
