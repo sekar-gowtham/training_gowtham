@@ -1,0 +1,23 @@
+Class mobilePhone 
+{
+	Int sim_no;
+	Int charge_level;
+Public:
+	void makeCall();
+	void sendSms();
+	void sendingEmails();
+	void settingAlarm();
+};
+Class mobilePhoneManufacturer
+{
+	Char brand_name[];
+	Char model_name[];
+Public:
+	void distributors();
+	void customers();
+};
+Int main()
+{
+	mobilePhone mp;
+	mobilePhoneManufacturer mpm;
+}
