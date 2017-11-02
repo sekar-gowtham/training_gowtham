@@ -1,0 +1,32 @@
+class Team
+{
+	char team_coach[];
+  int no_of_players;
+	int goals;
+	void teamRating();
+};
+class joystick
+{
+	char key_names[];
+	void keyPressed();
+	void longKeyPressed();
+};
+class players
+{
+	Int individual_goals;
+	void playerPerformance();
+};
+class computer
+{
+	int screen_size;
+	int ram;
+	int rom;
+	int pixels;
+};
+Int main()
+{
+	team india;
+	joystick joy;
+	players p;
+	computer hp;
+}
