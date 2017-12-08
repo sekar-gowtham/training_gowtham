@@ -8,13 +8,16 @@ using namespace std;
 class employees
 {
 public:
+	//empQueue q;
 	int id = 100;
-	vector<int> emp_id;
+
+	vector<int> employee_id;
 	vector<int> pay;
 	vector<int> year_of_joining;
-	vector<string> emp_name;
+	vector<string> employee_name;
+	vector<string> project_name;
 	vector<string> department;
-	
+	vector <int> bench;
 	
 
 	employees();
