@@ -5,20 +5,14 @@ using namespace std;
 void main()
 {
 	company mt;
-	
-	int choice=0;
+	int choice=1;
 	while (1)
 	{
-		cout << "\n\n1.create new employee\n2.Display names of employee from a particular year of joining\n3.details of the employee from a particular department having the highest pay";
-		cout << "\n4.Display all details of all employees in ascending order\n5.Update pay by employee id ";
-		cout << "\n6.Move Employee from project to bench\n7.Move Employee from bench to project\n8.View bench\n0.Exit";
-		cout << "\nEnter choice ";
-		choice = mt.validation();											//get the choice from the user
 		
-		switch (choice)														
+		switch (choice)														//execute case according to user's input
 		{
 		case 1:
-			mt.createNewEmployee();
+			mt.createNewEmployee();											
 			break;
 		case 2:
 			mt.namesFromDateOfJoining();
@@ -46,8 +40,14 @@ void main()
 		default:
 			cout << "\nEnter valid choice ";
 		}
+		cout << "\n\n1.Add new employee\n2.Display names of employee from a particular year of joining\n3.details of the employee from a particular department having the highest pay";
+		cout << "\n4.Display all details of all employees in ascending order\n5.Update pay by employee id ";
+		cout << "\n6.Move Employee from project to bench\n7.Move Employee from bench to project\n8.View bench\n0.Exit";
+		cout << "\nEnter choice ";
+		choice = mt.getChoice();												//get the choice from the user
+
 	}
-	cin.clear();
-	cin.ignore(1000,'\n');
+	cin.clear();																//clearing the error flags of cin
+	cin.ignore(1000,'\n');														//ignore the wrong input
 	cin.get();
 }
