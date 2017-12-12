@@ -13,18 +13,18 @@ public:
 	empQueue queue;
 	company();
 	~company();
-	int front = 0;
-	int rear = 0;
+	int front = 0;												//to identify first element in the bench
+	int rear = 0;												//to identify last element in the bench
 	void createNewEmployee();
 	void displayDetails();
 	void namesFromDateOfJoining();
 	void employeeWithHighPay();
 	void updatePay();
 	int binarySearch(string temp_id);
-	int validation(void);
-	/*void push();
-	void pop();
-	void viewBench();*/
+	int getChoice();
+	int checkYear();
+	float checkPay();
+
 };
 
 #endif
