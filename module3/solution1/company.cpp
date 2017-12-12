@@ -19,7 +19,8 @@ void company::createNewEmployee()
 	string dept;
 	string temp;
 	int year=0;
-	int salary=0;
+	float salary=0;
+	cout << "\nAdd Employee ";
 	temp = "EMP" + to_string(employee.id);						
 	cout << "\nEmployee id " << temp << "\n";
 	employee.employee_id.push_back(temp);													//auto generate id and push to employee_id variable
@@ -34,60 +35,88 @@ void company::createNewEmployee()
 
 	cout << "\nEnter department ";
 	cin >> dept;
-	employee.department.push_back(dept);														//get the department from the user and puah to department variable
-
-	while (year<1970||year > 2018)
-	{
-		cout << "\nEnter year of joining ";
-		year = validation();															//reaptly get the year until user enter a valid year
-	}
+	employee.department.push_back(dept);													//get the department from the user and puah to department variable
+														
+	cout << "\nEnter year of joining ";
+	year = checkYear();																	
+	
    	employee.year_of_joining.push_back(year);
 
 	cout << "\nEnter Pay ";
-	salary = validation();																//get the salary from the user and push to pay variable
+	salary = checkPay();																	//get the salary from the user and push to pay variable
 	employee.pay.push_back(salary);
-	queue.copyInfo(employee.employee_id, employee.project_name,employee.department);						
+	queue.copyInfo(employee.employee_id, employee.project_name,employee.department);		//pass the employee id ,project name ,department to the queue
 }
 
-int company::validation()
+int company::checkYear()
 {
-	int error=0;
-	int number=0;
 	float floatnumber;
+	int year;
+	int error = 0;
 	do
 	{
 		error = 0;
+
 		cin >> floatnumber;
-		number = floatnumber;
-		if (number < floatnumber)														//this condition will true when the user enters the float value
+		year = floatnumber;
+		if (cin.fail())																		// this condition will true when the user enters the string
 		{
-			cout << "\nEnter valid integer ";
+			cout << "\nPlease enter a year" << endl;
+			error = 1;
+			cin.clear();																	//clearing the error flags of cin
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');							//ignore the wrong input
+		}
+		else if (year < floatnumber)														//this condition will true when the user enters the float value
+		{
+			cout << "\nEnter valid year ";
 			error = 1;
 		}
-		else if (cin.fail())															//this condition will true when the user enters the string
+		else if (year < 1970 || year > 2017)												//reaptly get the year until user enter between the range
 		{
-			cout << "\nPlease enter a integer" << endl;
+			cout << "\n Enter year between 1970 - 2017 ";
 			error = 1;
-			cin.clear();
-			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+
+	} while (1 == error);
+	return year;
+}
+
+float company::checkPay()
+{
+	int error=0;
+	
+	float pay;
+	do
+	{
+		error = 0;
+		cin >> pay;
+		
+		if (cin.fail())																		//this condition will true when the user enters the string
+		{
+			cout << "\nPlease enter a Pay" << endl;
+			error = 1;
+			cin.clear();																	//clearing the error flags of cin
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');							//ignore the wrong input
 		}
 	
 	} while (1 == error);
-		return number;
+return pay;
 }
 
-void company::displayDetails()															//display all the details of the user
+void company::displayDetails()																//display all the details of the user
 {
 	int iterate=0;
-	for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
-	{
-		cout << "\nEmployee id:\t " << employee.employee_id[iterate] ;
-		cout <<"\nEmp Name:\t "<< employee.employee_name[iterate] ;
-		cout <<"\nProject Name:\t "<< queue.project_name[iterate];
-		cout <<"\nDepartment:\t "<< queue.department[iterate] ;
-		cout <<"\nyear of joining: "<< employee.year_of_joining[iterate] ;
-		cout <<"\nPay:\t\t "<< employee.pay[iterate] << "\n";
-	}
+	
+		for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
+		{
+			cout << "\nEmployee id:\t " << employee.employee_id[iterate];					//display employee id
+			cout << "\nEmp Name:\t " << employee.employee_name[iterate];					//display employee name
+			cout << "\nProject Name:\t " << queue.project_name[iterate];					//display employee's project name
+			cout << "\nDepartment:\t " << queue.department[iterate];						//display employee's department
+			cout << "\nyear of joining: " << employee.year_of_joining[iterate];				//display date of joining
+			cout << "\nPay:\t\t " << employee.pay[iterate] << "\n";							//display employee's pay
+		}
+	
 }
 
 void company::namesFromDateOfJoining()													//display particular names from date of joining
@@ -96,18 +125,18 @@ void company::namesFromDateOfJoining()													//display particular names fr
 	int iterate = 0;
 	int flag=0;
 	cout << "\nEnter year of joining ";
-	doj = validation();
+	doj = checkYear();
 	for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
 	{
-		if (employee.year_of_joining[iterate] == doj)
+		if (employee.year_of_joining[iterate] == doj)									//compare given date of joining with the list
 		{
 			flag = 1;
-			cout << "\n" << employee.employee_name[iterate];
+			cout << "\n" << employee.employee_name[iterate];							//display employee name when the given date of joining is match
 		}
 	}
-	if (0 == flag)
+	if (0 == flag)																		//inform the user that there is no employee with given date of joining
 	{
-		cout << "\nInvalid year of joining";
+		cout << "\nThere is no employee with given year of joining";
 	}
 }
 
@@ -122,18 +151,18 @@ void company::employeeWithHighPay()														//employee details who got high
 	cin >> dept;
 	for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
 	{
-		if (employee.department[iterate] == dept)
+		if (employee.department[iterate] == dept)										//compare given department with the list
 		{
 			flag = 1;
-			if (amount < employee.pay[iterate])
+			if (amount < employee.pay[iterate])											
 			{
-				high = iterate;
+				high = iterate;															//copy the index value when high pay is come
 			}
 		}
 	}
 	if (1 == flag)
 	{
-		cout << "\nhighest Pay in " << dept << " department";
+		cout << "\nhighest Pay in " << dept << " department";							//display details of that particular employee
 		cout << "\nEmployee id " << employee.employee_id[high];
 		cout << "\nEmployee name " << employee.employee_name[high];
 		cout << "\nProject name " << employee.project_name[high];
@@ -142,135 +171,60 @@ void company::employeeWithHighPay()														//employee details who got high
 	}
 	else
 	{
-		cout << "\ndepartment not found ";
+		cout << "\ndepartment not match ";												//inform the user that no match of given department 
 	}
 }
 
-int company::binarySearch(string temp_id)
-{
-	
-	int size=0;
-	int first=0;
-	int middle=0;
-	int last=0;
-	int id = 0;
-	size = employee.employee_id.size();
-	last = size-1;
-		while (first <= last)
-		{
-			middle = (first + last) / 2;
-			if (employee.employee_id[middle] == temp_id)
-			{
-				return middle;
-			}
-			else if (employee.employee_id[middle] < temp_id)
-			{
-				first = middle + 1;
-			}
-			else if (employee.employee_id[middle] > temp_id)
-			{
-				last = middle - 1;
-			}
-		}
-	
-	return -1;
-}
-
+　
 void company::updatePay()																//update pay by 5% for particular employee 
 {
 	string temp_id;
 	
 	int result=0;
 	cout << "\n\nEnter employee id ";
-	temp_id = validation();
-	result = binarySearch(temp_id);
+	cin >> temp_id;
+	result = queue.binarySearch(temp_id);														//search employee list whether the given id is present or not
 	if (-1 == result)
 	{
-		cout << "\nEmployee id not found ";
+		if (temp_id.compare(0, 3, "EMP") == 0)											//check whether the given id is valid or not
+		{
+			cout << "\nThere is no employee with id " << temp_id;
+		}
+		else
+		{
+			cout << "\n\nInvalid Employee id ";
+		}
 	}
 	else
 	{
-		employee.pay[result] = employee.pay[result] + (employee.pay[result] * 0.05);
+		employee.pay[result] = employee.pay[result] + (employee.pay[result] * 0.05);	//update pay by 5%
 		cout << "\nUpdated successfully";
 	}
 }
 
-　
-/*
+int company::getChoice()
+{
+	float floatnumber;
+	int choice;
+	int error = 0;
+	do
+	{
+		error = 0;
 
-void company::push()
-{
-	string id;
-	int flag = 0;
-	int iterate = 0;
-	int result=0;
-	cout << "\n\nEnter employee id ";
-	cin >> id;
-	result = binarySearch(id);
-	if (-1 == result)
-	{
-		cout << "\n\nEmployee not found";
-	}
-	else
-	{
-		for (iterate = front; iterate < rear; iterate++)
+		cin >> floatnumber;
+		choice = floatnumber;
+		if (cin.fail())																			//this condition will true when the user enters the string
 		{
-			if (employee.bench[iterate] == id)
-			{
-				cout << "Employee already in bench";
-				flag = 1;
-				break;
-			}
+			cout << "\nPlease enter the choice" << endl;
+			error = 1;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
-		if (flag == 0)
+		else if (choice < floatnumber)															//this condition will true when the user enters the float value
 		{
-			employee.bench.push_back(id);
-			cout << "\n\nEmployee moved to bench";
-			employee.department.at(result) = "  ";
-			employee.project_name.at(result) = "  ";
-			rear++;
+			cout << "\nEnter valid choice ";
+			error = 1;
 		}
-	}
+	} while (1 == error);
+	return choice;
 }
-void company::pop()
-{
-	int index;
-	string pro;
-	string dept;
-	string id;
-	if (front==rear)
-	{
-		cout << "\nbench is empty";
-	}
-	else
-	{
-		cout << "\nEnter project name ";
-		cin >> pro;
-		cout << "\nEnter department ";
-		cin >> dept;
-		id = employee.bench[front];
-		index = binarySearch(id);
-		employee.department[index] = dept;
-		employee.project_name[index] = pro;
-		cout << "\nEmployee " << id<< " moved to project";
-		front++;
-	}
-}
-void company::viewBench()
-{
-	int iterate = 0;
-	if (front==rear)
-	{
-		cout << "\nbench is empty";
-	}
-	else
-	{
-		cout << "\nEmployees in bench\n";
-		for (iterate = front; iterate < employee.bench.size(); iterate++)
-		{
-			cout << employee.bench[iterate] << endl;
-		}
-	}
-}
-
-*/
