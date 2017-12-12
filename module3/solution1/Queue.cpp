@@ -31,9 +31,16 @@ void empQueue::push()																    //remove employee from project to bench
 	cout << "\n\nEnter employee id ";
 	cin >> id;
 	result = binarySearch(id);															//search employee list whether the given id is present or not
-	if (-1 == result)
+	if (-1 == result)																	
 	{
-		cout << "\n\nEmployee not found";
+		if (id.compare(0, 3, "EMP") == 0)												//check whether the given id is valid or not
+		{
+			cout << "\nThere is no employee with id " << id;
+		}
+		else
+		{
+			cout << "\n\nInvalid Employee id ";						
+		}
 	}
 	else
 	{
@@ -50,7 +57,7 @@ void empQueue::push()																    //remove employee from project to bench
 		{
 			bench.push_back(id);														//push the employee to the bench
 			cout << "\n\nEmployee moved to bench";
-			department.at(result) = "  ";
+			department.at(result) = "  ";												//remove the department name and project name for particular employee
 			project_name.at(result) = "  ";
 			rear++;
 		}
@@ -74,8 +81,8 @@ void empQueue::pop()
 		cout << "\nEnter department ";
 		cin >> dept;
 		id = bench[front];
-		index = binarySearch(id);
-		department[index] = dept;
+		index = binarySearch(id);														//search employee list whether the given id is present or not
+		department[index] = dept;														//assign department name and project name to particular employee
 		project_name[index] = pro;
 		cout << "\nEmployee " << id << " moved to project";
 		front++;
@@ -105,23 +112,23 @@ int first = 0;
 int middle = 0;
 int last = 0;
 int id = 0;
-size = employee_id.size();
+size = employee_id.size();																//calculate number of employees
 last = size - 1;
 
 while (first <= last)
 {
 	middle = (first + last) / 2;
-	if (employee_id[middle] == temp_id)
+	if (employee_id[middle] == temp_id)													//compare the middle element with given id 
 	{
-		return middle;
+		return middle;																	//return index if middle element is equal to given id
 	}
 	else if (employee_id[middle] < temp_id)
 	{
-		first = middle + 1;
+		first = middle + 1;																//change first value if middle element is less than given id
 	}
 	else if (employee_id[middle] > temp_id)
 	{
-		last = middle - 1;
+		last = middle - 1;																//change last value if middle element is greater than given id
 	}
 }
 
