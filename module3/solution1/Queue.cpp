@@ -28,38 +28,45 @@ void empQueue::push()																    //remove employee from project to bench
 	int flag = 0;
 	int iterate = 0;
 	int result = 0;
-	cout << "\n\nEnter employee id ";
-	cin >> id;
-	result = binarySearch(id);															//search employee list whether the given id is present or not
-	if (-1 == result)																	
+	if (employee_id.size() == 0)
 	{
-		if (id.compare(0, 3, "EMP") == 0)												//check whether the given id is valid or not
-		{
-			cout << "\nThere is no employee with id " << id;
-		}
-		else
-		{
-			cout << "\n\nInvalid Employee id ";						
-		}
+		cout << "\nThere is no employee in company , create employee first ";
 	}
 	else
 	{
-		for (iterate = front; iterate < rear; iterate++)								//search bench whether the employee is already in bench or not
+		cout << "\n\nEnter employee id ";
+		cin >> id;
+		result = binarySearch(id);															//search employee list whether the given id is present or not
+		if (-1 == result)
 		{
-			if (bench[iterate] == id)
+			if (id.compare(0, 3, "EMP") == 0)												//check whether the given id is valid or not
 			{
-				cout << "Employee already in bench";
-				flag = 1;
-				break;
+				cout << "\nThere is no employee with id " << id;
+			}
+			else
+			{
+				cout << "\n\nInvalid Employee id ";
 			}
 		}
-		if (flag == 0)
+		else
 		{
-			bench.push_back(id);														//push the employee to the bench
-			cout << "\n\nEmployee moved to bench";
-			department.at(result) = "  ";												//remove the department name and project name for particular employee
-			project_name.at(result) = "  ";
-			rear++;
+			for (iterate = front; iterate < rear; iterate++)								//search bench whether the employee is already in bench or not
+			{
+				if (bench[iterate] == id)
+				{
+					cout << "Employee already in bench";
+					flag = 1;
+					break;
+				}
+			}
+			if (flag == 0)
+			{
+				bench.push_back(id);														//push the employee to the bench
+				cout << "\n\nEmployee moved to bench";
+				department.at(result) = "  ";												//remove the department name and project name for particular employee
+				project_name.at(result) = "  ";
+				rear++;
+			}
 		}
 	}
 }
