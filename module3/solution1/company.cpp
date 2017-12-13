@@ -84,7 +84,6 @@ int company::checkYear()
 float company::checkPay()
 {
 	int error=0;
-	
 	float pay;
 	do
 	{
@@ -106,8 +105,13 @@ return pay;
 void company::displayDetails()																//display all the details of the user
 {
 	int iterate=0;
-	
-		for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
+	if (employee.employee_id.size() == 0)
+	{
+		cout << "\nThere is no employee in company , create employee first ";
+	}
+	else
+	{
+		for (iterate = 0; iterate < (employee.employee_id.size()); iterate++)
 		{
 			cout << "\nEmployee id:\t " << employee.employee_id[iterate];					//display employee id
 			cout << "\nEmp Name:\t " << employee.employee_name[iterate];					//display employee name
@@ -116,7 +120,7 @@ void company::displayDetails()																//display all the details of the u
 			cout << "\nyear of joining: " << employee.year_of_joining[iterate];				//display date of joining
 			cout << "\nPay:\t\t " << employee.pay[iterate] << "\n";							//display employee's pay
 		}
-	
+	}
 }
 
 void company::namesFromDateOfJoining()													//display particular names from date of joining
@@ -124,19 +128,27 @@ void company::namesFromDateOfJoining()													//display particular names fr
 	int doj=0;
 	int iterate = 0;
 	int flag=0;
-	cout << "\nEnter year of joining ";
-	doj = checkYear();
-	for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
+	
+	if (employee.employee_id.size() == 0)
 	{
-		if (employee.year_of_joining[iterate] == doj)									//compare given date of joining with the list
-		{
-			flag = 1;
-			cout << "\n" << employee.employee_name[iterate];							//display employee name when the given date of joining is match
-		}
+		cout << "\nThere is no employee in company , create employee first ";
 	}
-	if (0 == flag)																		//inform the user that there is no employee with given date of joining
+	else
 	{
-		cout << "\nThere is no employee with given year of joining";
+		cout << "\nEnter year of joining ";
+		doj = checkYear();
+		for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
+		{
+			if (employee.year_of_joining[iterate] == doj)									//compare given date of joining with the list
+			{
+				flag = 1;
+				cout << "\n" << employee.employee_name[iterate];							//display employee name when the given date of joining is match
+			}
+		}
+		if (0 == flag)																		//inform the user that there is no employee with given date of joining
+		{
+			cout << "\nThere is no employee with given year of joining";
+		}
 	}
 }
 
@@ -147,31 +159,41 @@ void company::employeeWithHighPay()														//employee details who got high
 	int amount = 0;
 	string dept;
 	int flag = 0;
-	cout << "\nEnter department ";
-	cin >> dept;
-	for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
+	if (employee.employee_id.size() == 0)
 	{
-		if (employee.department[iterate] == dept)										//compare given department with the list
-		{
-			flag = 1;
-			if (amount < employee.pay[iterate])											
-			{
-				high = iterate;															//copy the index value when high pay is come
-			}
-		}
-	}
-	if (1 == flag)
-	{
-		cout << "\nhighest Pay in " << dept << " department";							//display details of that particular employee
-		cout << "\nEmployee id " << employee.employee_id[high];
-		cout << "\nEmployee name " << employee.employee_name[high];
-		cout << "\nProject name " << employee.project_name[high];
-		cout << "\nYear of joining " << employee.year_of_joining[high];
-		cout << "\nPay " << employee.pay[high];
+		cout << "\nThere is no employee in company , create employee first ";
 	}
 	else
 	{
-		cout << "\ndepartment not match ";												//inform the user that no match of given department 
+		cout << "\nEnter department ";
+		cin >> dept;
+
+		for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
+		{
+			if (queue.department[iterate] == dept)										//compare given department with the list
+			{
+				flag = 1;
+				if (amount < employee.pay[iterate])
+				{
+					amount = employee.pay[iterate];
+					high = iterate;															//copy the index value when high pay is come
+				}
+
+			}
+		}
+		if (1 == flag)
+		{
+			cout << "\nhighest Pay in " << dept << " department";							//display details of that particular employee
+			cout << "\nEmployee id " << employee.employee_id[high];
+			cout << "\nEmployee name " << employee.employee_name[high];
+			cout << "\nProject name " << employee.project_name[high];
+			cout << "\nYear of joining " << employee.year_of_joining[high];
+			cout << "\nPay " << employee.pay[high];
+		}
+		else
+		{
+			cout << "\ndepartment not match ";												//inform the user that no match of given department 
+		}
 	}
 }
 
@@ -181,24 +203,32 @@ void company::updatePay()																//update pay by 5% for particular emplo
 	string temp_id;
 	
 	int result=0;
-	cout << "\n\nEnter employee id ";
-	cin >> temp_id;
-	result = queue.binarySearch(temp_id);														//search employee list whether the given id is present or not
-	if (-1 == result)
+	if (employee.employee_id.size() == 0)
 	{
-		if (temp_id.compare(0, 3, "EMP") == 0)											//check whether the given id is valid or not
-		{
-			cout << "\nThere is no employee with id " << temp_id;
-		}
-		else
-		{
-			cout << "\n\nInvalid Employee id ";
-		}
+		cout << "\nThere is no employee in company , create employee first ";
 	}
 	else
 	{
-		employee.pay[result] = employee.pay[result] + (employee.pay[result] * 0.05);	//update pay by 5%
-		cout << "\nUpdated successfully";
+
+		cout << "\n\nEnter employee id ";
+		cin >> temp_id;
+		result = queue.binarySearch(temp_id);														//search employee list whether the given id is present or not
+		if (-1 == result)
+		{
+			if (temp_id.compare(0, 3, "EMP") == 0)											//check whether the given id is valid or not
+			{
+				cout << "\nThere is no employee with id " << temp_id;
+			}
+			else
+			{
+				cout << "\n\nInvalid Employee id ";
+			}
+		}
+		else
+		{
+			employee.pay[result] = employee.pay[result] + (employee.pay[result] * 0.05);	//update pay by 5%
+			cout << "\nUpdated successfully";
+		}
 	}
 }
 
