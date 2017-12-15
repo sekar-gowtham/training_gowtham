@@ -8,11 +8,14 @@ void main()
 	float price;
 	Products pen;
 	Products *root=NULL;
+	Products *copy = new Products;
+	int size;
+	float p;
 	int choice = 0;
 	
 	while (1)
 	{
-		cout << "\n\n\n1.Add a product\n2.display all products\nEnter your choice ";
+		cout << "\n\n1.Add a product\n2.display all products\n3.number of products with given price\n4.Mirror copy of given tree\n0.Exit\nEnter your choice ";
 		cin >> choice;
 		switch (choice)
 		{
@@ -26,10 +29,28 @@ void main()
 		case 2:
 			pen.inOrder(root);
 			break;
-		default:
-			cout << "\nEnter valid choice ";
+		case 3:
+			cout << "\nEnter the price ";
+			cin >> p;
+			size=pen.numberOfProducts(root,p);
+			if (size > 0)
+			{
+				cout << "\nNumber of products found  " << size;
+			}
+			else
+			{
+				cout << "\nNo product price match with given price ";
+			}
+			break;
+		case 4:
+			//copy = pen.duplicate(root);
+			copy=pen.mirror(root);
+			pen.inOrder(copy);
+			break;
 		case 0:
 			exit(0);
+		default:
+			cout << "\nEnter valid choice ";
 
 		}
 	}
