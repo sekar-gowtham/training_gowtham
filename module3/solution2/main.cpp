@@ -1,3 +1,10 @@
+/*
+File name : main.cpp
+Purpose : To store product name and it's price
+Author : Gowtham
+
+*/
+
 #include<iostream>																			
 #include"Products.h"																		
 using namespace std;																		 
@@ -22,7 +29,8 @@ void main()
 		{
 		case 1:
 			cout << "\nEnter name ";
-			cin >> name;
+			cin.ignore();
+			getline(cin, name);
 			cout << "Enter price ";
 			do
 			{
@@ -48,8 +56,22 @@ void main()
 			}
 			else
 			{
-				cout << "\nEnter the price ";
-				cin >> search_price;
+				cout << "\nEnter the price you want to search ";
+				do
+				{
+					cin >> search_price;
+					error = 0;
+				
+					if (cin.fail())																		// this condition will true when the user enters the string
+					{
+						cout << "\nPlease enter the price " << endl;
+						error = 1;
+						cin.clear();																	//clearing the error flags of cin
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');							//ignore the wrong input
+					}
+				} while (1 == error);
+				
+
 				size = pen.numberOfProducts(root, search_price);											//to find number of products with same prize
 				if (size > 0)
 				{
