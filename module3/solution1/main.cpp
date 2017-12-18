@@ -1,3 +1,8 @@
+/*
+File name : main.cpp
+Purpose : To store employee details
+Author : Gowtham
+*/
 #include "employees.h"
 #include "company.h"
 #include<iostream>
