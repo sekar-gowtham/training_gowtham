@@ -20,32 +20,38 @@ void company::createNewEmployee()
 	string temp;
 	int year=0;
 	float salary=0;
+	flag = 1;
+	pointer = new employees;
+	id++;
+
 	cout << "\nAdd Employee ";
-	temp = "EMP" + to_string(employee.id);						
-	cout << "\nEmployee id " << temp << "\n";
-	employee.employee_id.push_back(temp);													//auto generate id and push to employee_id variable
-	employee.id++;
+	temp = "EMP" + to_string(id);						
+	cout << "\nEmployee id " << temp ;
+	pointer->setId(temp);														//auto generate id and assign to pointer object
+
 	cout << "\nEnter employee name ";
-	cin >> name;
-	employee.employee_name.push_back(name);													//get the name from user and push to employee_name variable
+	cin.ignore();
+	getline(cin, name);
+	pointer->setEmployeeName(name);												//get the name from user and assign to object object
 
 	cout << "\nEnter Project name ";
-	cin >> project;
-	employee.project_name.push_back(project);												//get the project name from the user and push to project_name variable
+	getline(cin, project);
+	pointer->setProjectName(project);											//get the project name and assign to pointer object
 
 	cout << "\nEnter department ";
-	cin >> dept;
-	employee.department.push_back(dept);													//get the department from the user and puah to department variable
-														
+	getline(cin, dept);
+	pointer->setDepartment(dept);												//get the department name and assign to pointer object
+
 	cout << "\nEnter year of joining ";
 	year = checkYear();																	
-	
-   	employee.year_of_joining.push_back(year);
-
+	pointer->setYearOfJoining(year);											//get the year and assign to pointer object
+   
 	cout << "\nEnter Pay ";
-	salary = checkPay();																	//get the salary from the user and push to pay variable
-	employee.pay.push_back(salary);
-	queue.copyInfo(employee.employee_id, employee.project_name,employee.department);		//pass the employee id ,project name ,department to the queue
+	salary = checkPay();																	
+	pointer->setPay(salary);													//get the salary and assign to pointer object
+
+	employee.push_back(*pointer);												//push the pointer object to employee object
+	cout << "\nEmployee added successfully ";
 }
 
 int company::checkYear()
@@ -66,16 +72,12 @@ int company::checkYear()
 			cin.clear();																	//clearing the error flags of cin
 			cin.ignore(numeric_limits<streamsize>::max(), '\n');							//ignore the wrong input
 		}
-		else if (year < floatnumber)														//this condition will true when the user enters the float value
+		else if ((year < floatnumber) ||( year < 1970))														//this condition will true when the user enters the float value
 		{
 			cout << "\nEnter valid year ";
 			error = 1;
 		}
-		else if (year < 1970 || year > 2017)												//reaptly get the year until user enter between the range
-		{
-			cout << "\n Enter year between 1970 - 2017 ";
-			error = 1;
-		}
+	
 
 	} while (1 == error);
 	return year;
@@ -105,20 +107,21 @@ return pay;
 void company::displayDetails()																//display all the details of the user
 {
 	int iterate=0;
-	if (employee.employee_id.size() == 0)
+	if (flag == 0)
 	{
 		cout << "\nThere is no employee in company , create employee first ";
 	}
 	else
 	{
-		for (iterate = 0; iterate < (employee.employee_id.size()); iterate++)
+		vector<employees>::iterator it;
+		for (it = employee.begin(); it != employee.end(); ++it)
 		{
-			cout << "\nEmployee id:\t " << employee.employee_id[iterate];					//display employee id
-			cout << "\nEmp Name:\t " << employee.employee_name[iterate];					//display employee name
-			cout << "\nProject Name:\t " << queue.project_name[iterate];					//display employee's project name
-			cout << "\nDepartment:\t " << queue.department[iterate];						//display employee's department
-			cout << "\nyear of joining: " << employee.year_of_joining[iterate];				//display date of joining
-			cout << "\nPay:\t\t " << employee.pay[iterate] << "\n";							//display employee's pay
+			cout << "\n\nEmployee id:\t " << it->employee_id;									//display employee id
+			cout << "\nEmp Name:\t " << it->employee_name;									//display employee name
+			cout << "\nProject Name:\t " << it->project_name;								//display employee's project name
+			cout << "\nDepartment:\t " << it->department;									//display employee's department
+			cout << "\nyear of joining: " << it->year_of_joining;							//display date of joining
+			cout << "\nPay:\t\t " << it->pay;												//display employee's pay
 		}
 	}
 }
@@ -127,9 +130,9 @@ void company::namesFromDateOfJoining()													//display particular names fr
 {
 	int doj=0;
 	int iterate = 0;
-	int flag=0;
+	int f=0;
 	
-	if (employee.employee_id.size() == 0)
+	if (flag == 0)
 	{
 		cout << "\nThere is no employee in company , create employee first ";
 	}
@@ -137,15 +140,16 @@ void company::namesFromDateOfJoining()													//display particular names fr
 	{
 		cout << "\nEnter year of joining ";
 		doj = checkYear();
-		for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
+		vector<employees>::iterator it;
+		for (it = employee.begin(); it != employee.end(); ++it)
 		{
-			if (employee.year_of_joining[iterate] == doj)									//compare given date of joining with the list
+			if (it->year_of_joining == doj)
 			{
-				flag = 1;
-				cout << "\n" << employee.employee_name[iterate];							//display employee name when the given date of joining is match
+				f = 1;
+				cout <<"\n"<< it->employee_name;
 			}
 		}
-		if (0 == flag)																		//inform the user that there is no employee with given date of joining
+		if (0 == f)																		//inform the user that there is no employee with given date of joining
 		{
 			cout << "\nThere is no employee with given year of joining";
 		}
@@ -154,12 +158,12 @@ void company::namesFromDateOfJoining()													//display particular names fr
 
 void company::employeeWithHighPay()														//employee details who got high pay from particular department
 {
-	int iterate = 0;
+	
 	int high = 0;
 	int amount = 0;
 	string dept;
-	int flag = 0;
-	if (employee.employee_id.size() == 0)
+	int f = 0;
+	if (0==flag)
 	{
 		cout << "\nThere is no employee in company , create employee first ";
 	}
@@ -168,27 +172,29 @@ void company::employeeWithHighPay()														//employee details who got high
 		cout << "\nEnter department ";
 		cin >> dept;
 
-		for (iterate = 0; iterate < employee.employee_id.size(); iterate++)
+		vector<employees>::iterator it;
+		vector<employees>::iterator t;
+		for (it = employee.begin(); it != employee.end(); ++it)
 		{
-			if (queue.department[iterate] == dept)										//compare given department with the list
+			if (it->department == dept)										//compare given department with the list
 			{
-				flag = 1;
-				if (amount < employee.pay[iterate])
+				f = 1;
+				if (amount < it->pay)
 				{
-					amount = employee.pay[iterate];
-					high = iterate;															//copy the index value when high pay is come
+					amount = it->pay;
+					t = it;
 				}
 
 			}
 		}
-		if (1 == flag)
+		if (1 == f)
 		{
 			cout << "\nhighest Pay in " << dept << " department";							//display details of that particular employee
-			cout << "\nEmployee id " << employee.employee_id[high];
-			cout << "\nEmployee name " << employee.employee_name[high];
-			cout << "\nProject name " << employee.project_name[high];
-			cout << "\nYear of joining " << employee.year_of_joining[high];
-			cout << "\nPay " << employee.pay[high];
+			cout << "\nEmployee id " << t->employee_id;
+			cout << "\nEmployee name " << t->employee_name;
+			cout << "\nProject name " << t->project_name;
+			cout << "\nYear of joining " << t->year_of_joining;
+			cout << "\nPay " <<t->pay;
 		}
 		else
 		{
@@ -203,7 +209,7 @@ void company::updatePay()																//update pay by 5% for particular emplo
 	string temp_id;
 	
 	int result=0;
-	if (employee.employee_id.size() == 0)
+	if (flag == 0)
 	{
 		cout << "\nThere is no employee in company , create employee first ";
 	}
@@ -212,7 +218,7 @@ void company::updatePay()																//update pay by 5% for particular emplo
 
 		cout << "\n\nEnter employee id ";
 		cin >> temp_id;
-		result = queue.binarySearch(temp_id);														//search employee list whether the given id is present or not
+		result = binarySearch(temp_id);														//search employee list whether the given id is present or not
 		if (-1 == result)
 		{
 			if (temp_id.compare(0, 3, "EMP") == 0)											//check whether the given id is valid or not
@@ -226,7 +232,7 @@ void company::updatePay()																//update pay by 5% for particular emplo
 		}
 		else
 		{
-			employee.pay[result] = employee.pay[result] + (employee.pay[result] * 0.05);	//update pay by 5%
+			employee[result].pay = employee[result].pay + (employee[result].pay * 0.05);	//update pay by 5%
 			cout << "\nUpdated successfully";
 		}
 	}
@@ -257,4 +263,94 @@ int company::getChoice()
 		}
 	} while (1 == error);
 	return choice;
+}
+
+int company::binarySearch(string temp_id)
+{
+	int size = 0;
+	int first = 0;
+	int middle = 0;
+	int last = 0;
+	size = employee.size();
+	last = size - 1;
+	middle = (first + last) / 2;
+																	
+	
+
+　
+	while (first <= last)
+	{
+		middle = (first+last) / 2;
+		if (employee[middle].employee_id == temp_id)										//compare the middle element with given id 
+		{
+			return middle;																	//return index if middle element is equal to given id
+		}
+		else if (employee[middle].employee_id < temp_id)
+		{
+			first = middle + 1;																//change first value if middle element is less than given id
+		}
+		else if (employee[middle].employee_id > temp_id)
+		{
+			last = middle - 1;																//change last value if middle element is greater than given id
+		}
+	}
+
+	return -1;
+}
+
+void company::pushEmployee()
+{
+	string id;
+	int result = 0;
+	if (flag == 0)
+	{
+		cout << "\nThere is no employee in company , create employee first ";
+	}
+	else
+	{
+		cout << "\n\nEnter employee id ";
+		cin >> id;
+		result = binarySearch(id);															//search employee list whether the given id is present or not
+		if (-1 == result)
+		{
+			if (id.compare(0, 3, "EMP") == 0)												//check whether the given id is valid or not
+			{
+				cout << "\nThere is no employee with id " << id;
+			}
+			else
+			{
+				cout << "\n\nInvalid Employee id ";
+			}
+		}
+		else
+		{
+			queue.push(id);
+			employee[result].department = "";
+			employee[result].project_name = "";
+		}
+	}
+}
+
+void company::popEmployee()
+{
+	int index = 0;
+	string id;
+	string project;
+	string dept;
+	id = queue.pop();
+	if (id != "abc")
+	{
+		index = binarySearch(id);	
+		cout << "\nEnter project name ";
+		cin >> project;																		//get the new project name from user
+		cout << "\nEnter department name ";
+		cin >> dept;																		//get the new department name from the user
+		employee[index].department = dept;
+		employee[index].project_name = project;
+	}
+}
+
+void company::viewBenchEmployee()
+{
+	queue.viewBench();
 }
