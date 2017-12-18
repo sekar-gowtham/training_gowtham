@@ -9,12 +9,15 @@ using namespace std;
 class company
 {
 public:
-	employees employee;
+	vector<employees> employee;
+	employees *pointer;
 	empQueue queue;
+	
 	company();
 	~company();
-	int front = 0;												//to identify first element in the bench
-	int rear = 0;												//to identify last element in the bench
+	int id = 100;
+	bool flag = 0;
+	
 	void createNewEmployee();
 	void displayDetails();
 	void namesFromDateOfJoining();
@@ -24,7 +27,9 @@ public:
 	int getChoice();
 	int checkYear();
 	float checkPay();
-
+	void pushEmployee();
+	void popEmployee();
+	void viewBenchEmployee();
 };
 
 #endif
