@@ -1,6 +1,6 @@
-#include<iostream>																			//defines the standard input/output stream objects
-#include"Products.h"																		//include Products.h file to use their variables and function
-using namespace std;																		//to use features of Standard Library 
+#include<iostream>																			
+#include"Products.h"																		
+using namespace std;																		 
 void main()
 {
 	string name;
@@ -11,6 +11,7 @@ void main()
 	int size;
 	float search_price;
 	int choice = 0;
+	bool error = 0;
 	
 	while (1)
 	{
@@ -23,7 +24,18 @@ void main()
 			cout << "\nEnter name ";
 			cin >> name;
 			cout << "Enter price ";
-			cin >> price;
+			do
+			{
+				error = 0;
+				cin >> price;
+				if (cin.fail())																		// this condition will true when the user enters the string
+				{
+					cout << "\nPlease enter the price " << endl;
+					error = 1;
+					cin.clear();																	//clearing the error flags of cin
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');							//ignore the wrong input
+				}
+			} while (1 == error);
 			root=pen.insert(name,price,root);																//pass the data to store in tree
 			break;
 		case 2:
@@ -50,7 +62,6 @@ void main()
 			}
 			break;
 		case 4:
-			//copy = pen.duplicate(root);
 			copy=pen.mirror(root);																			//create mirror copy of the tree
 			pen.inOrder(copy);																				//display the mirror tree
 			break;
