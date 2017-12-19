@@ -1,4 +1,4 @@
-#include "Products.h"														//include Products.h file to use their variables and function
+#include "Products.h"													
 
 　
 Products::Products()
@@ -134,7 +134,7 @@ void Products::display(Products *temp)
 	cout << "\n\n\nProducts name:";
 	for (iterate = 0; iterate < temp->product_name.size(); iterate++)
 	{
-		cout << ",    " << temp->product_name[iterate];									//print product name
+		cout << " ,    " << temp->product_name[iterate];									//print product name
 	}
 	cout << "\nProducts Prize     " << temp->product_price;								//print product price
 }
@@ -203,4 +203,23 @@ int Products::getChoice()
 	
 	} while (1 == error);
 	return choice;
+}
+
+float Products::getPrice()
+{	
+	float price;
+	bool error = 0;
+	do
+	{
+		error = 0;
+		cin >> price;
+		if (cin.fail())																		// this condition will true when the user enters the string
+		{
+			cout << "\nPlease enter the price " << endl;
+			error = 1;
+			cin.clear();																	//clearing the error flags of cin
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');							//ignore the wrong input
+		}
+	} while (1 == error);
+	return price;
 }
