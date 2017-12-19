@@ -1,10 +1,10 @@
-#ifndef Products_HEADER													//to delete the file which is already present with the same name of this header file 
-#define Products_HEADER													//define a new file with current file name
-#pragma once															//source file to be included only once in a single compilation
-#include<vector>														//include vector to use vector variables and function
-#include<string>														//include string to use string variables and function
-#include<iostream>														//defines the standard input/output stream objects
-using namespace std;													//to use features of Standard Library
+#ifndef Products_HEADER													 
+#define Products_HEADER													
+#pragma once															
+#include<vector>														
+#include<string>														
+#include<iostream>														
+using namespace std;													
 class Products
 {
 public:
@@ -28,6 +28,7 @@ public:
 	Products* mirror(Products *node);
 	int numberOfProducts(Products *temp,float price);
 	int getChoice();
+	float getPrice();
 };
 
 #endif
