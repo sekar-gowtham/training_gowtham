@@ -32,18 +32,7 @@ void main()
 			cin.ignore();
 			getline(cin, name);
 			cout << "Enter price ";
-			do
-			{
-				error = 0;
-				cin >> price;
-				if (cin.fail())																		// this condition will true when the user enters the string
-				{
-					cout << "\nPlease enter the price " << endl;
-					error = 1;
-					cin.clear();																	//clearing the error flags of cin
-					cin.ignore(numeric_limits<streamsize>::max(), '\n');							//ignore the wrong input
-				}
-			} while (1 == error);
+			price = pen.getPrice();
 			root=pen.insert(name,price,root);																//pass the data to store in tree
 			break;
 		case 2:
@@ -57,20 +46,7 @@ void main()
 			else
 			{
 				cout << "\nEnter the price you want to search ";
-				do
-				{
-					cin >> search_price;
-					error = 0;
-				
-					if (cin.fail())																		// this condition will true when the user enters the string
-					{
-						cout << "\nPlease enter the price " << endl;
-						error = 1;
-						cin.clear();																	//clearing the error flags of cin
-						cin.ignore(numeric_limits<streamsize>::max(), '\n');							//ignore the wrong input
-					}
-				} while (1 == error);
-				
+				search_price = pen.getPrice();
 
 				size = pen.numberOfProducts(root, search_price);											//to find number of products with same prize
 				if (size > 0)
