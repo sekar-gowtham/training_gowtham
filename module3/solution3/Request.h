@@ -1,19 +1,21 @@
 #include <string>
 #include <vector>
-//#include "Queue.h"
+
 using namespace std;
 #pragma once
 class Request
 {
 private:
-	//Queue queue;
+
 	
 	string air_id;
 	string request_type;
 public:
-	void setRequest(string,string);
-	void requestToQueue();
-
+	void setId(string);
+	void setReq(string);
+	string getId();
+	string getReq();
 	Request();
 	~Request();
 };
+

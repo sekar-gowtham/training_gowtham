@@ -4,7 +4,7 @@ Airplane::Airplane()
 {
 }
 
-　
+
 Airplane::~Airplane()
 {
 }
@@ -12,31 +12,28 @@ void Airplane::setAirplaneId(string id)
 {
 	airplane_id = id;
 }
-void Airplane::setAirplaneCompany(string company)
-{
-	airplane_company = company;
-	
-}
+//void Airplane::setAirplaneCompany(string company)
+//{
+//	airplane_company = company;
+//	
+//}
 
-void Airplane::generateRequest(string id)
+string Airplane::generateRequest(string id)
 {
-	time_t end_time;
 	int random_number;
-	string req;
+	string reqt;
 	
 
 		random_number = rand() % 2;
 			if (1 == random_number)
 			{
-				req = "landing";
+				reqt = "landing";
 			}
 			else
 			{
-				req = "takeoff";
+				reqt = "takeoff";
 			}
 		
-	
-
-	//request.setRequest(id, req);
-	
+			cout << "\n" << reqt << " request created " << endl;
+			return reqt;
 }

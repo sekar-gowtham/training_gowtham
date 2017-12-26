@@ -2,7 +2,7 @@
 class Runway
 {
 private:
-	bool status;
+	bool status=0;
 	
 public:
 	void setStatus(bool);
@@ -10,3 +10,4 @@ public:
 	Runway();
 	~Runway();
 };
+

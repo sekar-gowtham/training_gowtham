@@ -1,25 +1,53 @@
 #include <thread>
 #include <iostream>
-#include <ctime>
-#include <thread>
-#include <iomanip> 
+#include <ctime> 
 #include "Airport.h"
-#include "Airplane.h"
+
 
 using namespace std;
 
 void main()
 {
 	Airport cbe;
-	string aero_id;
+
+	/*cbe.firstOperation();
+	cbe.checkRunway1();
+	cbe.checkRunway2();*/
+	
+	time_t total_time;
+	total_time = time(NULL)+200;
+	
 	
 
-	aero_id=cbe.genarateAirId();
+	thread thread1(&Airport::firstOperation, cbe,total_time);
 
-	cbe.airobj.generateRequest();
 
-　
+		while (time(NULL) < total_time)
+		{
+			
+			
+			/*thread thread2(&Airport::checkRunway1, cbe);
+			thread thread3(&Airport::checkRunway2, cbe);*/
+
+			
+			
+			/*cbe.checkRunway1();
+			cbe.checkRunway2();*/
+		}
+
+	/*	thread thread2(&Airport::checkRunway1, cbe);
+
+		thread thread3(&Airport::checkRunway2, cbe);*/
+	
+	
+	thread1.join();
+	/*thread2.join();
+	thread3.join();*/
+
+	
+	cbe.display();
+	
 	cin.get();
 }
 
-　
+
