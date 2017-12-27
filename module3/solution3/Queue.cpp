@@ -10,62 +10,64 @@ Queue::~Queue()
 {
 }
 
-
-bool Queue::pop()
+void Queue::setFront(int i)
 {
-	if (landing_front != landing_rear)
-	{
-		landing_count++;
-		landing_front++;
-		return 1;
-	}
-	else if (takeoff_front != takeoff_rear)
-	{
-		takeoff_count++;
-		takeoff_front++;
-		return 1;
-	}
-	return 0;
+	this->front = i;
 }
 
-void Queue::landingTakeoffCount()
+int Queue::getFront()
 {
-	cout << "\n\n\nNumber of landing " << landing_count;
-	cout << "\nNumber of takeoff " << takeoff_count;
-
+	return this->front;
 }
 
 void Queue::displayQueue()
 {
 	int i;
-	cout << "\nIn Landing queue ";
-	for (i = landing_front; i < landing_rear; i++)
-	{
-		cout << landingQueue[i].getId() << endl;
-	//	cout << landingQueue[i].getReq() << endl;
-	}
-	cout << "\n In Takeoff queue ";
-	for (i = takeoff_front; i < takeoff_rear; i++)
-	{
-		cout << takeoffQueue[i].getId() << endl;
-	//	cout << takeoffQueue[i].getReq() << endl;
-	}
-}
 
-void Queue::push(string id, string req)
-{
-	Request r;
-	r.setId(id);
-	r.setReq(req);
-	if (req == "landing")
+	if (id.size()==0)
 	{
-		landingQueue.push_back(r);
-		landing_rear++;
+		cout << "empty" << endl;
 	}
 	else
 	{
-		takeoffQueue.push_back(r);
-		takeoff_rear++;
+		for (i = 0; i < id.size(); i++)
+		{
+			cout << id[i] << endl;
+			
+		}
+		cout << "frnt " << this->front;
 	}
+
+}
+
+bool Queue::pop()
+{
+	
+	if (id.size() != 0)
+	{
+		this->count++;
+		front++;
+		id.erase(id.begin());
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void Queue::displayCount()
+{
+	cout << this->count;
+}
+
+
+
+void Queue::push(string aid)
+{
+	
+		id.push_back(aid);
+		
+		rear++;
 
 }

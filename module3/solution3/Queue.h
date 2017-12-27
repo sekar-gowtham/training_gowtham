@@ -9,19 +9,21 @@ class Queue
 {
 private:
 
-	vector<Request> landingQueue;
-	vector<Request> takeoffQueue;
+	vector<string> id;
+	int count = 0;
+	int front =0;														
+	int rear = 0;
 	
-	int landing_count = 0;
-	int takeoff_count = 0;
-	int landing_front = 0;														
-	int landing_rear = 0;
-	int takeoff_front = 0;
-	int takeoff_rear = 0;
 public:
+	void setFront(int);
+	int getFront();
+	//void setRear(int);
+	//int getRear();
+	//void setCount(int);
+	//int getCount();
 	void displayQueue();
-	void landingTakeoffCount();
-	void push(string,string);
+	void displayCount();
+	void push(string);
 	bool pop();
 	
 	void checkQueue();

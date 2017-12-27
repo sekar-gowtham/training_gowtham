@@ -10,42 +10,27 @@ void main()
 {
 	Airport cbe;
 
-	/*cbe.firstOperation();
-	cbe.checkRunway1();
-	cbe.checkRunway2();*/
+
 	
 	time_t total_time;
-	total_time = time(NULL)+200;
+	total_time = time(NULL)+180;
 	
 	
+	
+	//thread thread1(&Airport::operation1, cbe,total_time);
+	//thread thread2(&Airport::operation2, cbe,total_time);
+	//thread thread3(&Airport::operation3, cbe,total_time);
 
-	thread thread1(&Airport::firstOperation, cbe,total_time);
+	cbe.operation1(total_time);
+	cbe.operation2(total_time);
+	cbe.operation3(total_time);
+	
+	//thread1.join();
+	//thread2.join();
+	//thread3.join();
 
-
-		while (time(NULL) < total_time)
-		{
-			
-			
-			/*thread thread2(&Airport::checkRunway1, cbe);
-			thread thread3(&Airport::checkRunway2, cbe);*/
-
-			
-			
-			/*cbe.checkRunway1();
-			cbe.checkRunway2();*/
-		}
-
-	/*	thread thread2(&Airport::checkRunway1, cbe);
-
-		thread thread3(&Airport::checkRunway2, cbe);*/
 	
 	
-	thread1.join();
-	/*thread2.join();
-	thread3.join();*/
-
-	
-	cbe.display();
 	
 	cin.get();
 }
