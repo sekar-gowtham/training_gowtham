@@ -1,24 +1,22 @@
 #include <string>
 #include <iostream>
 #include <ctime>
-//#include "Request.h"
 using namespace std;
 #pragma once
 
 class Airplane
 {
 private:
-	
-
 	string airplane_id;
-	//string airplane_company;
+	string req_id;
+	
 	
 public:
-	string generateRequest(string);
+	string generateRequestType(string);
+	string generateRequestId();
 	void setAirplaneId(string);
-	void setAirplaneCompany(string);
-	/*string getAirplaneId();
-	string getAirplaneCompany();*/
+	void setRequestId(string);
+	
 	Airplane();
 	~Airplane();
 };

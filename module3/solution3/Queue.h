@@ -1,6 +1,5 @@
 #include <string>
 #include <vector>
-#include <thread>
 #include <iostream>
 #include "Request.h"
 using namespace std;
@@ -8,25 +7,17 @@ using namespace std;
 class Queue
 {
 private:
-
-	vector<string> id;
+	vector<string> airplane_id;
+	vector<string> req_id;
 	int count = 0;
 	int front =0;														
 	int rear = 0;
-	
 public:
-	void setFront(int);
-	int getFront();
-	//void setRear(int);
-	//int getRear();
-	//void setCount(int);
-	//int getCount();
 	void displayQueue();
 	void displayCount();
-	void push(string);
+	void push(string,string);
 	bool pop();
-	
-	void checkQueue();
+	string getPopId();
 	Queue();
 	~Queue();
 };

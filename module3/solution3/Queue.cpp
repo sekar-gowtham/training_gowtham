@@ -10,44 +10,31 @@ Queue::~Queue()
 {
 }
 
-void Queue::setFront(int i)
-{
-	this->front = i;
-}
-
-int Queue::getFront()
-{
-	return this->front;
-}
-
 void Queue::displayQueue()
 {
 	int i;
-
-	if (id.size()==0)
+	if (airplane_id.size()==0)
 	{
 		cout << "empty" << endl;
 	}
 	else
 	{
-		for (i = 0; i < id.size(); i++)
+		for (i = 0; i < airplane_id.size(); i++)
 		{
-			cout << id[i] << endl;
-			
+			cout <<"Airplane id  "<< airplane_id[i] <<"  Request id  "<<req_id[i]<<endl;
 		}
-		cout << "frnt " << this->front;
 	}
 
 }
 
 bool Queue::pop()
 {
-	
-	if (id.size() != 0)
+	if (airplane_id.size() != 0)
 	{
 		this->count++;
 		front++;
-		id.erase(id.begin());
+		airplane_id.erase(airplane_id.begin());
+		req_id.erase(req_id.begin());
 		return true;
 	}
 	else
@@ -56,18 +43,23 @@ bool Queue::pop()
 	}
 }
 
+
+
 void Queue::displayCount()
 {
 	cout << this->count;
 }
 
-
-
-void Queue::push(string aid)
+void Queue::push(string aid,string rid)
 {
-	
-		id.push_back(aid);
-		
+		airplane_id.push_back(aid);
+		req_id.push_back(rid);
 		rear++;
+}
 
+string Queue::getPopId()
+{
+	string i;
+	i = this->req_id[0];
+	return i;
 }

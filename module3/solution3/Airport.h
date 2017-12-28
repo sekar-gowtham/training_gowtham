@@ -1,11 +1,12 @@
 #include <string>
 #include<vector>
 #include<ctime>
+#include<chrono>
 #include<thread>
 #include "Queue.h"
 #include "Airplane.h"
 #include "Runway.h"
-#include<chrono>
+
 using namespace std;
 #pragma once
 class Airport
@@ -15,13 +16,14 @@ private:
 	Queue takeoffQueue;
 	vector <Airplane> airways;
 	Runway runway1, runway2;
-	Airplane airobj;
+	vector <Request> request;
 	
 	int id=101;
 	string aero_id;
-	string req;
-public:
+	time_t landing_time=0;
+	time_t takeoff_time=0;
 	
+public:
 	string genarateAirId();
 	void startOperation();
 	void operation1(time_t t);
@@ -31,6 +33,5 @@ public:
 	void checkRunway2();
 	Airport();
 	~Airport();
-
 };
 
