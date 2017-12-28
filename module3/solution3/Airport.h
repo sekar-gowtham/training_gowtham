@@ -16,7 +16,8 @@ private:
 	Queue takeoffQueue;
 	vector <Airplane> airways;
 	Runway runway1, runway2;
-	vector <Request> request;
+	vector <Request> landing;
+	vector <Request> takeoff;
 	
 	int id=101;
 	string aero_id;

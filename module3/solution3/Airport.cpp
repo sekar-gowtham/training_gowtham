@@ -54,17 +54,18 @@ void Airport::startOperation()
 	r.setId(aero_id);
 	r.setRequestId(rid);
 	r.setRequestType(req);
+
 	t = time(NULL);
 	r.setInTime(t);
-	request.push_back(r);
+
 
 	if (req == "landing")
 	{
-		landingQueue.push(aero_id,rid);
+		landingQueue.push(r);
 	}
 	else
 	{
-		takeoffQueue.push(aero_id,rid);
+		takeoffQueue.push(r);
 	}		
 }
 
@@ -91,46 +92,27 @@ void Airport::checkRunway1()
 		}
 		runway1.setStatus(0);
 	}*/
-	string popId;
-	bool check=0;
-	time_t t4;
-	time_t t5;
+	bool check;
+	
+	Request r;
+	
 	if (runway1.getStatus() == 0)
 	{
 		runway1.setStatus(1);
-		popId = landingQueue.getPopId();
-		check=landingQueue.pop();
-		if (check)
+		check = landingQueue.isEmpty();
+		if (1==check)
 		{
-			for (int i = 0; i < request.size(); i++)
-			{
-				if (popId == request[i].getId())
-				{
-					t4 = request[i].getInTime();
-					t5 = time(NULL);
-					landing_time = landing_time + (t5 - t4);
-					break;
-				}
-			}
-			
+			r=landingQueue.pop();
+			landing.push_back(r);
 			this_thread::sleep_for(chrono::seconds(30));
 		}
 		else
 		{
-			popId = takeoffQueue.getPopId();
-			check = takeoffQueue.pop();
-			if ( check)
+			check = takeoffQueue.isEmpty();
+			if (1 == check)
 			{
-				for (int i = 0; i < request.size(); i++)
-				{
-					if (popId == request[i].getId())
-					{
-						t4 = request[i].getInTime();
-						t5 = time(NULL);
-						takeoff_time = takeoff_time + (t5 - t4);
-						break;
-					}
-				}
+				r = landingQueue.pop();
+				takeoff.push_back(r);
 				this_thread::sleep_for(chrono::seconds(30));
 			}
 		}
@@ -140,9 +122,8 @@ void Airport::checkRunway1()
 
 void Airport::checkRunway2()
 {
-	string popId;
-	time_t t4;
-	time_t t5;
+
+	
 	/*bool check1 = 0;
 	if (runway2.getStatus() == 0)
 	{
@@ -163,50 +144,31 @@ void Airport::checkRunway2()
 		}
 		runway2.setStatus(0);
 	}*/
-	bool check1=0;
-	
+	bool check;
+
+	Request r;
+
 	if (runway2.getStatus() == 0)
 	{
 		runway2.setStatus(1);
-		popId = landingQueue.getPopId();
-		check1 = landingQueue.pop();
-		
-		if (check1)
+		check = landingQueue.isEmpty();
+		if (1 == check)
 		{
-			
-			
-			for (int i = 0; i <request.size(); i++)
-			{
-				if (popId == request[i].getId())
-				{
-					t4 = request[i].getInTime();
-					t5 = time(NULL);
-					landing_time = landing_time + (t5 - t4);
-					break;
-				}
-			}
+			r = landingQueue.pop();
+			landing.push_back(r);
 			this_thread::sleep_for(chrono::seconds(30));
 		}
 		else
 		{
-			popId = takeoffQueue.getPopId();
-			check1 = takeoffQueue.pop();
-			
-			if (check1)
+			check = takeoffQueue.isEmpty();
+			if (1 == check)
 			{
-				for (int i = 0; i < request.size(); i++)
-				{
-					if (popId == request[i].getId())
-					{
-						t4 = request[i].getInTime();
-						t5 = time(NULL);
-						takeoff_time = takeoff_time + (t5 - t4);
-						break;
-					}
-				}
+				r = landingQueue.pop();
+				takeoff.push_back(r);
 				this_thread::sleep_for(chrono::seconds(30));
 			}
 		}
+		
 		runway2.setStatus(0);
 	}
 }

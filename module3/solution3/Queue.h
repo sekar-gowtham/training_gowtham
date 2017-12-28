@@ -7,17 +7,16 @@ using namespace std;
 class Queue
 {
 private:
-	vector<string> airplane_id;
-	vector<string> req_id;
+	vector<Request> reqst;
 	int count = 0;
 	int front =0;														
 	int rear = 0;
 public:
 	void displayQueue();
 	void displayCount();
-	void push(string,string);
-	bool pop();
-	string getPopId();
+	void push(Request);
+	Request pop();
+	bool isEmpty();
 	Queue();
 	~Queue();
 };

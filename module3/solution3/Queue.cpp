@@ -12,35 +12,28 @@ Queue::~Queue()
 
 void Queue::displayQueue()
 {
-	int i;
-	if (airplane_id.size()==0)
+	for (int index = 0; index < reqst.size(); index++)
 	{
-		cout << "empty" << endl;
-	}
-	else
-	{
-		for (i = 0; i < airplane_id.size(); i++)
-		{
-			cout <<"Airplane id  "<< airplane_id[i] <<"  Request id  "<<req_id[i]<<endl;
-		}
+		cout << "\nAirplane id " << reqst[index].getId();
+		cout << "\nRequest id " << reqst[index].getReqId();
 	}
 
 }
 
-bool Queue::pop()
+Request Queue::pop()
 {
-	if (airplane_id.size() != 0)
+	Request rst;
+	if (reqst.size() != 0)
 	{
 		this->count++;
 		front++;
-		airplane_id.erase(airplane_id.begin());
-		req_id.erase(req_id.begin());
-		return true;
+		rst = reqst[0];
+		reqst.erase(reqst.begin());
+		return rst;
 	}
-	else
-	{
-		return false;
-	}
+	
+	
+
 }
 
 
@@ -50,16 +43,20 @@ void Queue::displayCount()
 	cout << this->count;
 }
 
-void Queue::push(string aid,string rid)
+void Queue::push( Request r)
 {
-		airplane_id.push_back(aid);
-		req_id.push_back(rid);
+	reqst.push_back(r);
 		rear++;
 }
 
-string Queue::getPopId()
+bool Queue::isEmpty()
 {
-	string i;
-	i = this->req_id[0];
-	return i;
+	if (reqst.size() == 0)
+	{
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
 }
