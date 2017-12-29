@@ -15,16 +15,12 @@ void main()
 	Products pen;
 	Products *root=NULL;
 	Products *copy = new Products;
-	int size;
-	float search_price;
 	int choice = 0;
-	bool error = 0;
-	
 	while (1)
 	{
 		cout << "\n\n1.Add a product\n2.display all products\n3.number of products with given price";
 		cout<<"\n4.Mirror copy of given tree\n0.Exit\nEnter your choice ";
-		choice=pen.getChoice();																						//get the choice from the user
+		choice=pen.validChoice();																						//get the choice from the user
 		switch (choice)
 		{
 		case 1:
@@ -32,32 +28,14 @@ void main()
 			cin.ignore();
 			getline(cin, name);
 			cout << "Enter price ";
-			price = pen.getPrice();
+			price = pen.validPrice();
 			root=pen.insert(name,price,root);																//pass the data to store in tree
 			break;
 		case 2:
 			pen.inOrder(root);																				//display the tree 
 			break;
 		case 3:
-			if (pen.flag == 0)
-			{
-				cout << "\nTree is empty";
-			}
-			else
-			{
-				cout << "\nEnter the price you want to search ";
-				search_price = pen.getPrice();
-
-				size = pen.numberOfProducts(root, search_price);											//to find number of products with same prize
-				if (size > 0)
-				{
-					cout << "\nNumber of products found  " << size;
-				}
-				else 
-				{
-					cout << "\nNo product price match with given price ";
-				}
-			}
+			pen.numberOfProducts(root);
 			break;
 		case 4:
 			copy=pen.mirror(root);																			//create mirror copy of the tree
@@ -67,7 +45,6 @@ void main()
 			exit(0);
 		default:
 			cout << "\nEnter valid choice ";
-
 		}
 	}
 }
