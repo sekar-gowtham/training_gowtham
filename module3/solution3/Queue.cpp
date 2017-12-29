@@ -21,7 +21,7 @@ void Queue::displayQueue()
 		for (int index = 0; index < reqst.size(); index++)
 		{
 			cout << "\nAirplane id " << reqst[index].getId();
-			cout << "\nRequest id " << reqst[index].getReqId();
+			cout << "\nRequest id " << reqst[index].getReqId()<<endl;
 		}
 	}
 }

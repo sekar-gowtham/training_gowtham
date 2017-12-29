@@ -8,7 +8,7 @@ void main()
 {
 	Airport cbe;
 	time_t total_time;
-	total_time = time(NULL)+7200;
+	total_time = time(NULL)+240;
 	
 	thread thread1(&Airport::operation1, &cbe,total_time);
 	thread thread2(&Airport::operation2, &cbe,total_time);

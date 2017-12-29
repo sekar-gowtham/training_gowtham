@@ -19,7 +19,7 @@ private:
 	vector <Request> landing;
 	vector <Request> takeoff;
 	int id=101;
-	int time_taken = 900;
+	int time_taken = 60;
 	int landing_time=0;
 	int takeoff_time=0;
 	

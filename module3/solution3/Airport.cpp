@@ -15,7 +15,7 @@ string Airport::genarateAirId()
 	Airplane airobj;
 	int random_number;
 	time_t end_time;
-	random_number = rand() % 600;
+	random_number = rand() % 60;
 	end_time = time(NULL) + random_number;
 	while (1)
 	{
@@ -62,6 +62,7 @@ void Airport::checkRunway1(time_t total_time)
 	bool check;
 	int start_time;
 	time_t end_time;
+	struct tm info;
 	Request r;
 	if (runway1.getStatus() == 0)
 	{
@@ -73,14 +74,18 @@ void Airport::checkRunway1(time_t total_time)
 			start_time = r.getInTime();
 			end_time = time(NULL);
 			landing_time = landing_time + (end_time - start_time);
-			
+			localtime_s(&info, &end_time);
+			cout << "\nRequest id " << r.getReqId() << "started landing on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec<<endl;
 			landing.push_back(r);
 
-			if ((end_time - total_time) < time_taken)
+			if ((total_time - end_time) < time_taken)
 			{
-				time_taken = (end_time - total_time);
+				time_taken = (total_time - end_time);
 			}
 			this_thread::sleep_for(chrono::seconds(time_taken));
+			end_time = time(NULL);
+			localtime_s(&info, &end_time);
+			cout << "\nRequest id " << r.getReqId() << "finished landing on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
 		}
 		else
 		{
@@ -90,13 +95,18 @@ void Airport::checkRunway1(time_t total_time)
 				r = takeoffQueue.pop();
 				start_time = r.getInTime();
 				end_time = time(NULL);
+				localtime_s(&info, &end_time);
 				takeoff_time = takeoff_time + (end_time - start_time);
+				cout << "\nRequest id " << r.getReqId() << "started takeoff on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
 				takeoff.push_back(r);
-				if ((end_time - total_time) < time_taken)
+				if ((total_time - end_time) < time_taken)
 				{
-					time_taken = (end_time - total_time);
+					time_taken = (total_time - end_time);
 				}
 				this_thread::sleep_for(chrono::seconds(time_taken));
+				end_time = time(NULL);
+				localtime_s(&info, &end_time);
+				cout << "\nRequest id " << r.getReqId() << "finished landing on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
 			}
 		}
 		runway1.setStatus(0);
@@ -109,6 +119,7 @@ void Airport::checkRunway2(time_t total_time)
 	int start_time;
 	time_t end_time;
 	Request r;
+	struct tm info;
 	if (runway2.getStatus() == 0)
 	{
 		runway2.setStatus(1);
@@ -119,12 +130,17 @@ void Airport::checkRunway2(time_t total_time)
 			start_time = r.getInTime();
 			end_time = time(NULL);
 			landing_time = landing_time + (end_time - start_time);
+			localtime_s(&info, &end_time);
+			cout << "\nRequest id " << r.getReqId() << " started landing on runway 2 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
 			landing.push_back(r);
-			if ((end_time - total_time) < time_taken)
+			if ((total_time - end_time) < time_taken)
 			{
-				time_taken = (end_time - total_time);
+				time_taken = (total_time - end_time);
 			}
 			this_thread::sleep_for(chrono::seconds(time_taken));
+			end_time = time(NULL);
+			localtime_s(&info, &end_time);
+			cout << "\nRequest id " << r.getReqId() << "finished landing on runway 2 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
 		}
 		else
 		{
@@ -134,13 +150,18 @@ void Airport::checkRunway2(time_t total_time)
 				r = takeoffQueue.pop();
 				start_time = r.getInTime();
 				end_time = time(NULL);
+				localtime_s(&info, &end_time);
 				takeoff_time = takeoff_time + (end_time - start_time);
+				cout << "\nRequest id " << r.getReqId() << "started takeoff on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
 				takeoff.push_back(r);
-				if ((end_time - total_time) < time_taken)
+				if ((total_time - end_time) < time_taken)
 				{
-					time_taken = (end_time - total_time);
+					time_taken = (total_time - end_time);
 				}
 				this_thread::sleep_for(chrono::seconds(time_taken));
+				end_time = time(NULL);
+				localtime_s(&info, &end_time);
+				cout << "\nRequest id " << r.getReqId() << "finished landing on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
 			}
 		}
 		runway2.setStatus(0);

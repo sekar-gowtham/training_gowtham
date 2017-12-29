@@ -17,6 +17,10 @@ string Airplane::generateRequestType(string id)
 {
 	int random_number;
 	string reqt;
+	time_t t;
+	time(&t);
+	struct tm info;
+	localtime_s(&info, &t);
 		random_number  = rand() % 2;
 
 			if (1 == random_number)
@@ -27,7 +31,7 @@ string Airplane::generateRequestType(string id)
 			{
 				reqt = "takeoff";
 			}
-			cout << "\n" << reqt << " request created " << endl;
+			cout << "    " << reqt << " request created " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
 			return reqt;
 }
 
@@ -37,5 +41,6 @@ string Airplane::generateRequestId()
 	string rid;
 	reqid++;
 	rid = "REQ" + to_string(reqid);
+	cout << "Request id " << rid;
 	return rid;
 }
