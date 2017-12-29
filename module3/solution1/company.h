@@ -10,7 +10,7 @@ class company
 {
 public:
 	vector<employees> employee;
-	employees *pointer;
+	employees employ;
 	empQueue queue;
 	
 	company();
@@ -27,8 +27,8 @@ public:
 	int getChoice();
 	int checkYear();
 	float checkPay();
-	void pushEmployee();
-	void popEmployee();
+	void addEmployeeToBench();
+	void addEmployeeToProject();
 	void viewBenchEmployee();
 };
 

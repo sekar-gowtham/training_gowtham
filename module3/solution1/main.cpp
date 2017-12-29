@@ -2,7 +2,9 @@
 File name : main.cpp
 Purpose : To store employee details
 Author : Gowtham
+
 */
+
 #include "employees.h"
 #include "company.h"
 #include<iostream>
@@ -20,7 +22,7 @@ void main()
 		cout << "\nEnter choice ";
 		choice = mt.getChoice();												//get the choice from the user
 		
-		switch (choice)														//execute case according to user's input
+		switch (choice)															//execute case according to user's input
 		{
 		case 1:
 			mt.createNewEmployee();											
@@ -38,10 +40,10 @@ void main()
 			mt.updatePay();
 			break;
 		case 6:
-			mt.pushEmployee();
+			mt.addEmployeeToBench();
 			break;
 		case 7:
-			mt.popEmployee();
+			mt.addEmployeeToProject();
 			break;
 		case 8:
 			mt.viewBenchEmployee();

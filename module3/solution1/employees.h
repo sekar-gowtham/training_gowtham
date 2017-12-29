@@ -9,22 +9,28 @@
 using namespace std;
 class employees
 {
-public:
-	
+private:
 	string employee_id;													//variable to store employee id
 	float pay;															//variable to store pay
 	int year_of_joining;												//variable to store year of joining 
 	string employee_name;												//variable to store employee name
 	string project_name;												//variable to store project name
 	string department;													//variable to store department
-	
-	void setId(string id);
-	void setPay(float tpay);
-	void setYearOfJoining(int yoj);
-	void setEmployeeName(string name);
-	void setProjectName(string project);
-	void setDepartment(string dept);
+public:
 
+
+	void setId(string id);
+	string getId();
+	void setPay(float tpay);
+	float getpay();
+	void setYearOfJoining(int yoj);
+	int getYearOfJoining();
+	void setEmployeeName(string name);
+	string getEmployeeName();
+	void setProjectName(string project);
+	string getProjectName();
+	void setDepartment(string dept);
+	string getDepartment();
 	
 	employees();
 	~employees();
