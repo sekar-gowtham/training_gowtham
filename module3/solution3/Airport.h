@@ -18,11 +18,10 @@ private:
 	Runway runway1, runway2;
 	vector <Request> landing;
 	vector <Request> takeoff;
-	
 	int id=101;
-	string aero_id;
-	time_t landing_time=0;
-	time_t takeoff_time=0;
+	int time_taken = 900;
+	int landing_time=0;
+	int takeoff_time=0;
 	
 public:
 	string genarateAirId();
@@ -30,8 +29,8 @@ public:
 	void operation1(time_t t);
 	void operation2(time_t t);
 	void operation3(time_t t);
-	void checkRunway1();
-	void checkRunway2();
+	void checkRunway1(time_t t);
+	void checkRunway2(time_t t);
 	Airport();
 	~Airport();
 };

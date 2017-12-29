@@ -13,7 +13,7 @@ private:
 	int rear = 0;
 public:
 	void displayQueue();
-	void displayCount();
+	int getCount();
 	void push(Request);
 	Request pop();
 	bool isEmpty();

@@ -13,13 +13,6 @@ void Airplane::setAirplaneId(string id)
 	airplane_id = id;
 }
 
-void Airplane::setRequestId(string rid)
-{
-	req_id = rid;
-}
-
-
-
 string Airplane::generateRequestType(string id)
 {
 	int random_number;
@@ -44,6 +37,5 @@ string Airplane::generateRequestId()
 	string rid;
 	reqid++;
 	rid = "REQ" + to_string(reqid);
-	
 	return rid;
 }

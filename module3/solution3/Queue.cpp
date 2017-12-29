@@ -12,35 +12,34 @@ Queue::~Queue()
 
 void Queue::displayQueue()
 {
-	for (int index = 0; index < reqst.size(); index++)
+	if (reqst.size() == 0)
 	{
-		cout << "\nAirplane id " << reqst[index].getId();
-		cout << "\nRequest id " << reqst[index].getReqId();
+		cout << "\nEmpty";
 	}
-
+	else
+	{
+		for (int index = 0; index < reqst.size(); index++)
+		{
+			cout << "\nAirplane id " << reqst[index].getId();
+			cout << "\nRequest id " << reqst[index].getReqId();
+		}
+	}
 }
 
 Request Queue::pop()
 {
 	Request rst;
-	if (reqst.size() != 0)
-	{
+	
 		this->count++;
 		front++;
 		rst = reqst[0];
 		reqst.erase(reqst.begin());
 		return rst;
-	}
-	
-	
-
 }
 
-
-
-void Queue::displayCount()
+int Queue::getCount()
 {
-	cout << this->count;
+	return this->count;
 }
 
 void Queue::push( Request r)

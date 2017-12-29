@@ -10,14 +10,13 @@ private:
 	string air_id;
 	string request_id;
 	string request_type;
-	time_t in_time;
+	int in_time;
 public:
-	void setId(string);
+	void setAeroId(string);
 	void setRequestId(string);
 	void setRequestType(string);
-	void setInTime(time_t);
-	time_t getInTime();
-	int calculatesize();
+	void setInTime(int);
+	int getInTime();
 	string getId();
 	string getReqId();
 	string getRequestType();

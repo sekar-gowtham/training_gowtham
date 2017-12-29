@@ -9,7 +9,7 @@ Request::~Request()
 {
 }
 
-void Request::setId(string id)
+void Request::setAeroId(string id)
 {
 	this->air_id = id;
 }
@@ -39,19 +39,12 @@ string Request::getReqId()
 	return this->request_id;
 }
 
-void Request::setInTime(time_t t)
+void Request::setInTime(int t)
 {
-	this->in_time;
+	this->in_time=t;
 }
 
-time_t Request::getInTime()
+int Request::getInTime()
 {
 	return this->in_time;
-}
-
-int Request::calculatesize()
-{
-	int i;
-	i = request_id.size();
-	return i;
 }
