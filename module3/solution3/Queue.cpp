@@ -10,19 +10,23 @@ Queue::~Queue()
 {
 }
 
-void Queue::displayQueue()
+int Queue::displayQueue()
 {
 	if (reqst.size() == 0)
 	{
 		cout << "\nEmpty";
+		return 0;
 	}
 	else
 	{
+		int waiting_time=0;
 		for (int index = 0; index < reqst.size(); index++)
 		{
 			cout << "\nAirplane id " << reqst[index].getId();
 			cout << "\nRequest id " << reqst[index].getReqId()<<endl;
+			waiting_time = waiting_time + reqst[index].getIntime();
 		}
+		return waiting_time;
 	}
 }
 
