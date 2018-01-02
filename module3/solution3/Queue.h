@@ -13,6 +13,7 @@ private:
 	int rear = 0;
 public:
 	int displayQueue();
+	int calculateQueueSize();
 	int getCount();
 	void push(Request);
 	Request pop();
