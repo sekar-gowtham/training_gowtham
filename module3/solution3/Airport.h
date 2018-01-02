@@ -16,8 +16,8 @@ private:
 	Queue takeoffQueue;
 	vector <Airplane> airways;
 	Runway runway1, runway2;
-	vector <Request> landing;
-	vector <Request> takeoff;
+	vector <Request> landed;
+	vector <Request> tookoff;
 	int id=101;
 	int time_taken = 60;
 	int landing_time=0;
