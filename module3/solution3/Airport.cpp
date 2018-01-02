@@ -77,7 +77,7 @@ void Airport::checkRunway1(time_t total_time)
 			landing_time = landing_time + (end_time - start_time);
 			localtime_s(&info, &end_time);
 			cout << "\nRequest id " << popedRequest.getReqId() << "started landing on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec<<endl;
-			landing.push_back(popedRequest);
+			landed.push_back(popedRequest);
 
 			if ((total_time - end_time) < time_taken)
 			{
@@ -101,7 +101,7 @@ void Airport::checkRunway1(time_t total_time)
 				localtime_s(&info, &end_time);
 				takeoff_time = takeoff_time + (end_time - start_time);
 				cout << "\nRequest id " << popedRequest.getReqId() << "started takeoff on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
-				takeoff.push_back(popedRequest);
+				tookoff.push_back(popedRequest);
 				if ((total_time - end_time) < time_taken)
 				{
 					time_taken = (total_time - end_time);
@@ -137,7 +137,7 @@ void Airport::checkRunway2(time_t total_time)
 			landing_time = landing_time + (end_time - start_time);
 			localtime_s(&info, &end_time);
 			cout << "\nRequest id " << popedRequest.getReqId() << " started landing on runway 2 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
-			landing.push_back(popedRequest);
+			landed.push_back(popedRequest);
 			if ((total_time - end_time) < time_taken)
 			{
 				time_taken = (total_time - end_time);
@@ -160,7 +160,7 @@ void Airport::checkRunway2(time_t total_time)
 				localtime_s(&info, &end_time);
 				takeoff_time = takeoff_time + (end_time - start_time);
 				cout << "\nRequest id " << popedRequest.getReqId() << "started takeoff on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
-				takeoff.push_back(popedRequest);
+				tookoff.push_back(popedRequest);
 				if ((total_time - end_time) < time_taken)
 				{
 					time_taken = (total_time - end_time);
