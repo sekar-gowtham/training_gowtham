@@ -180,19 +180,23 @@ void Airport::operation1(time_t total_time)
 		{
 		float average;
 				int waiting_time;		
+			
 			cout << "\nLanding count " << landingQueue.getCount();
 			cout << "\nTakeoff count " << takeoffQueue.getCount();
 			cout << "\nLanding Queue\n";
 			waiting_time=landingQueue.displayQueue();
 			landing_time+=waiting_time;
+			cout << "\ntotal landing wait time  " << landing_time;     
+			average = (float)landing_time / (landingQueue.getCount()+landingQueue.calculateQueueSize());  
+			cout << "\nAverage landing time " << average;
+			
+			
 			cout << "\nTakeoff  Queue\n";
 			waiting_time=takeoffQueue.displayQueue();
 			takeoff_time+=waiting_time;
-			cout << "\ntotal landing wait time  " << landing_time;
-			average = (float)landing_time / (landingQueue.getCount());
-			cout << "\nAverage landing time " << average;
+			
 			cout << "\ntotal takeoff wait time " << takeoff_time;
-			average = (float)takeoff_time / (takeoffQueue.getCount());
+			average = (float)takeoff_time / (takeoffQueue.getCount()+takeoffQueue.calculateQueueSize());
 			cout << "\nAverage takeoff time " << average;
 			break;
 		}
