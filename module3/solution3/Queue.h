@@ -7,7 +7,7 @@ using namespace std;
 class Queue
 {
 private:
-	vector<Request> reqst;
+	vector<Request> request;
 	int count = 0;
 	int front =0;														
 	int rear = 0;
