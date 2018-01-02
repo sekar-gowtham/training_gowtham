@@ -25,10 +25,10 @@ private:
 	
 public:
 	string genarateAirId();
-	void startOperation();
-	void operation1(time_t t);
-	void operation2(time_t t);
-	void operation3(time_t t);
+	void generateRequest();
+	void callGenerateRequest(time_t t);
+	void callCheckRunway1(time_t t);
+	void callCheckRunway2(time_t t);
 	void checkRunway1(time_t t);
 	void checkRunway2(time_t t);
 	Airport();
