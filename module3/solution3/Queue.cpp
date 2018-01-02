@@ -63,3 +63,8 @@ bool Queue::isEmpty()
 		return 0;
 	}
 }
+
+int Queue::calculateQueueSize()
+{
+	return reqst.size();
+}
