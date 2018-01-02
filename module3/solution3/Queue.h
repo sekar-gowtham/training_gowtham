@@ -12,7 +12,7 @@ private:
 	int front =0;														
 	int rear = 0;
 public:
-	void displayQueue();
+	int displayQueue();
 	int getCount();
 	void push(Request);
 	Request pop();
