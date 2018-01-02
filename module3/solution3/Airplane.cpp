@@ -38,9 +38,9 @@ string Airplane::generateRequestType(string id)
 string Airplane::generateRequestId()
 {
 	static int reqid = 151;
-	string rid;
+	string request_id;
 	reqid++;
-	rid = "REQ" + to_string(reqid);
-	cout << "Request id " << rid;
-	return rid;
+	request_id = "REQ" + to_string(reqid);
+	cout << "Request id " << request_id;
+	return request_id;
 }
