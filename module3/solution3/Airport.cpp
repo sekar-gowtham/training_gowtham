@@ -29,7 +29,7 @@ string Airport::genarateAirId()
 	return aid;
 }
 
-void Airport::startOperation()
+void Airport::callGenerateRequest()
 {
 	Airplane airobj;
 	string req;
@@ -168,13 +168,13 @@ void Airport::checkRunway2(time_t total_time)
 	}
 }
 
-void Airport::operation1(time_t total_time)
+void Airport::generateRequest(time_t total_time)
 {
 	while (1)
 	{
 		if (time(NULL) < total_time)
 		{
-			startOperation();
+			callGenerateRequest();
 		}
 		else
 		{
@@ -203,7 +203,7 @@ void Airport::operation1(time_t total_time)
 	}
 }
 
-void Airport::operation2(time_t total_time)
+void Airport::callCheckRunway1(time_t total_time)
 {
 	while (1)
 	{
@@ -218,7 +218,7 @@ void Airport::operation2(time_t total_time)
 	}
 }
 
-void Airport::operation3(time_t total_time)
+void Airport::callCheckRunway2(time_t total_time)
 {
 	while (1)
 	{
