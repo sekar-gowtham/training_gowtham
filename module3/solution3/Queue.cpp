@@ -12,7 +12,7 @@ Queue::~Queue()
 
 int Queue::displayQueue()
 {
-	if (reqst.size() == 0)
+	if (request.size() == 0)
 	{
 		cout << "\nEmpty";
 		return 0;
@@ -20,11 +20,11 @@ int Queue::displayQueue()
 	else
 	{
 		int waiting_time=0;
-		for (int index = 0; index < reqst.size(); index++)
+		for (int index = 0; index < request.size(); index++)
 		{
-			cout << "\nAirplane id " << reqst[index].getId();
-			cout << "\nRequest id " << reqst[index].getReqId()<<endl;
-			waiting_time = waiting_time + reqst[index].getIntime();
+			cout << "\nAirplane id " << request[index].getId();
+			cout << "\nRequest id " << request[index].getReqId()<<endl;
+			waiting_time = waiting_time + request[index].getIntime();
 		}
 		return waiting_time;
 	}
@@ -32,13 +32,13 @@ int Queue::displayQueue()
 
 Request Queue::pop()
 {
-	Request rst;
+	Request pop_request;
 	
 		this->count++;
 		front++;
-		rst = reqst[0];
-		reqst.erase(reqst.begin());
-		return rst;
+		pop_request = request[0];
+		request.erase(request.begin());
+		return pop_request;
 }
 
 int Queue::getCount()
@@ -48,13 +48,13 @@ int Queue::getCount()
 
 void Queue::push( Request r)
 {
-	reqst.push_back(r);
+	request.push_back(r);
 		rear++;
 }
 
 bool Queue::isEmpty()
 {
-	if (reqst.size() == 0)
+	if (request.size() == 0)
 	{
 		return 1;
 	}
@@ -66,5 +66,5 @@ bool Queue::isEmpty()
 
 int Queue::calculateQueueSize()
 {
-	return reqst.size();
+	return request.size();
 }
