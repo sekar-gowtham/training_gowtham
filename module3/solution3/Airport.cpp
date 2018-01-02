@@ -59,17 +59,18 @@ void Airport::generateRequest()
 
 void Airport::checkRunway1(time_t total_time)
 {
-	bool check;
+	
 	int start_time;
 	time_t end_time;
 	struct tm info;
 	Request r;
 	if (runway1.getStatus() == 0)
 	{
-		runway1.setStatus(1);
-		check = landingQueue.isEmpty();
-		if (1==check)
+		
+		
+		if (!landingQueue.isEmpty())
 		{
+		runway1.setStatus(1);	
 			r=landingQueue.pop();
 			start_time = r.getInTime();
 			end_time = time(NULL);
@@ -86,12 +87,14 @@ void Airport::checkRunway1(time_t total_time)
 			end_time = time(NULL);
 			localtime_s(&info, &end_time);
 			cout << "\nRequest id " << r.getReqId() << "finished landing on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
+		runway1.setStatus(0);
 		}
 		else
 		{
-			check = takeoffQueue.isEmpty();
-			if (1 == check)
+			
+			if (!takeoffQueue.isEmpty())
 			{
+				runway1.setStatus(1);
 				r = takeoffQueue.pop();
 				start_time = r.getInTime();
 				end_time = time(NULL);
@@ -107,25 +110,27 @@ void Airport::checkRunway1(time_t total_time)
 				end_time = time(NULL);
 				localtime_s(&info, &end_time);
 				cout << "\nRequest id " << r.getReqId() << "finished landing on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
+			runway1.setStatus(0);
 			}
 		}
-		runway1.setStatus(0);
+		
 	}
 }
 
 void Airport::checkRunway2(time_t total_time)
 {
-	bool check;
+	
 	int start_time;
 	time_t end_time;
 	Request r;
 	struct tm info;
 	if (runway2.getStatus() == 0)
 	{
-		runway2.setStatus(1);
-		check = landingQueue.isEmpty();
-		if (1 == check)
+		
+		
+		if (!landingQueue.isEmpty())
 		{
+		runway2.setStatus(1);
 			r = landingQueue.pop();
 			start_time = r.getInTime();
 			end_time = time(NULL);
@@ -141,12 +146,14 @@ void Airport::checkRunway2(time_t total_time)
 			end_time = time(NULL);
 			localtime_s(&info, &end_time);
 			cout << "\nRequest id " << r.getReqId() << "finished landing on runway 2 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
+		runway2.setStatus(0);
 		}
 		else
 		{
-			check = takeoffQueue.isEmpty();
-			if (1 == check)
+			
+			if (!takeoffQueue.isEmpty())
 			{
+				runway2.setStatus(1);
 				r = takeoffQueue.pop();
 				start_time = r.getInTime();
 				end_time = time(NULL);
@@ -162,9 +169,10 @@ void Airport::checkRunway2(time_t total_time)
 				end_time = time(NULL);
 				localtime_s(&info, &end_time);
 				cout << "\nRequest id " << r.getReqId() << "finished landing on runway 1 at " << info.tm_hour << " : " << info.tm_min << " : " << info.tm_sec << endl;
+			runway2.setStatus(0);
 			}
 		}
-		runway2.setStatus(0);
+		
 	}
 }
 
