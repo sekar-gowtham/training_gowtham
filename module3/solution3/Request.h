@@ -7,10 +7,10 @@ using namespace std;
 class Request
 {
 private:
-	string air_id;
-	string request_id;
-	string request_type;
-	int in_time;
+	string air_id;											//to store airplane id
+	string request_id;										//to store request id
+	string request_type;									//to store reuest type
+	int in_time;											//to store in time of the request
 public:
 	void setAeroId(string);
 	void setRequestId(string);

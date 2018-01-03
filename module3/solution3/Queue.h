@@ -7,10 +7,8 @@ using namespace std;
 class Queue
 {
 private:
-	vector<Request> request;
-	int count = 0;
-	int front =0;														
-	int rear = 0;
+	vector<Request> request;							//to store the request in the queue
+	int count = 0;										//to maintain the number of landing and takeoff performed
 public:
 	int displayQueue();
 	int calculateQueueSize();

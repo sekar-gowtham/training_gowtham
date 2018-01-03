@@ -6,12 +6,9 @@ using namespace std;
 
 class Airplane
 {
-private:
-	string airplane_id;
 public:
 	string generateRequestType(string);
 	string generateRequestId();
-	void setAirplaneId(string);
 	Airplane();
 	~Airplane();
 };

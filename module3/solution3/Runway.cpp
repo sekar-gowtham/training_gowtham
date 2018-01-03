@@ -3,7 +3,6 @@
 
 Runway::Runway()
 {
-
 }
 
 
@@ -11,9 +10,9 @@ Runway::~Runway()
 {
 }
 
-void Runway::setStatus(bool st)
+void Runway::setStatus(bool status)
 {
-	this->status = st;
+	this->status = status;
 }
 bool Runway::getStatus()
 {
