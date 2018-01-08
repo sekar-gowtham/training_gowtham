@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!ELEMENT music (songs,artists,albums,playlists)>
+
+<!ELEMENT songs (song)*>
+<!ELEMENT song (song_name,artist_idref,album_idref)>
+<!ELEMENT song_name (#PCDATA)>
+<!ELEMENT artist_idref  EMPTY>
+<!ATTLIST song artist_idref IDREFS #REQUIRED>
+<!ELEMENT album_idref EMPTY>
+<!ATTLIST song album_idref IDREFS #REQUIRED>
+<!ATTLIST song song_id ID #REQUIRED>
+
+<!ELEMENT artists (artist)*>
+<!ELEMENT artist (artist_name,songsOfArtist)>
+<!ELEMENT artist_name (#PCDATA)>
+<!ELEMENT songsOfArtist EMPTY>
+<!ATTLIST artist songsOfArtist IDREFS #REQUIRED>
+<!ATTLIST artist artist_id ID #REQUIRED>
+
+<!ELEMENT albums (album)*>
+<!ELEMENT album (album_name,songsOfAlbum)>
+<!ELEMENT album_name (#PCDATA)>
+<!ELEMENT songsOfAlbum EMPTY>
+<!ATTLIST album songsOfAlbum IDREFS #REQUIRED>
+<!ATTLIST album album_id ID #REQUIRED>
+
+<!ELEMENT playlists (playlist)*>
+<!ELEMENT playlist (playlist_name,songsOfPlaylist)>
+<!ELEMENT playlist_name (#PCDATA)>
+<!ELEMENT songsOfPlaylist EMPTY>
+<!ATTLIST playlist songsOfPlaylist  IDREFS #REQUIRED>
+<!ATTLIST playlist playlist_id ID #REQUIRED>
