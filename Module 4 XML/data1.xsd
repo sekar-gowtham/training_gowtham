@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="music">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="songs">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="song">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="song_name" type="xs:string" />
+                    <xs:element name="artist_idref">
+                      <xs:complexType>
+                        <xs:attribute name="idref" type="xs:IDREF" use="optional" />
+                        <xs:attribute name="idrefs" type="xs:IDREFS" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="album_idref">
+                      <xs:complexType>
+                        <xs:attribute name="idrefs" type="xs:IDREFS" use="optional" />
+                        <xs:attribute name="idref" type="xs:IDREF" use="optional" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:ID" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="artists">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="artist">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="artist_name" type="xs:string" />
+                    <xs:element minOccurs="0" name="songOfArtist">
+                      <xs:complexType>
+                        <xs:attribute name="idrefs" type="xs:IDREFS" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="0" name="songsOfArtist">
+                      <xs:complexType>
+                        <xs:attribute name="idrefs" type="xs:IDREFS" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:ID" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="albums">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="album">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="album_name" type="xs:string" />
+                    <xs:element name="songsOfAlbum">
+                      <xs:complexType>
+                        <xs:attribute name="idrefs" type="xs:IDREFS" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:ID" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="playlists">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="playlist">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="playlist_name" type="xs:string" />
+                    <xs:element name="songsOfPlaylist">
+                      <xs:complexType>
+                        <xs:attribute name="idrefs" type="xs:IDREFS" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:ID" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
