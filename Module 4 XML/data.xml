@@ -50,7 +50,7 @@
 			<artist_idref idrefs="artist1 artist2"/>
 			<album_idref idrefs="album1 album2"/>
 		</song>
-
+		
 	</songs>
 	<artists>
 		<artist id="artist1">
