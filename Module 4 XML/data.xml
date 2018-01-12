@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <music>
 	<songs>
 		<song id="song1">
@@ -50,7 +51,6 @@
 			<artist_idref idrefs="artist1 artist2"/>
 			<album_idref idrefs="album1 album2"/>
 		</song>
-		
 	</songs>
 	<artists>
 		<artist id="artist1">
@@ -97,6 +97,7 @@
 			<playlist_name>joy</playlist_name>
 			<songsOfPlaylist idrefs="song1 song2 song4 song6 song8 song9"/>
 		</playlist>
+		
 	</playlists>
 </music>
 
