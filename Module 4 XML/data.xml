@@ -1,131 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?>
+<music>
+	<songs>
+		<song id="song1">
+			<song_name>taxi taxi</song_name>
+			<artist_idref idref="artist2"/>
+			<album_idref idrefs="album1 album2"/>
+		</song>
+		<song id="song2">
+			<song_name>vennilave</song_name>
+			<artist_idref idrefs="artist1 artist3"/>
+			<album_idref idrefs="album2 album3"/>
+		</song>
+		<song id="song3">
+			<song_name>anbe anbe</song_name>
+			<artist_idref idrefs="artist2 artist4"/>
+			<album_idref idrefs="album1 album3"/>
+		</song>
+		<song id="song4">
+			<song_name>nanbane</song_name>
+			<artist_idref idref="artist3"/>
+			<album_idref idref="album1"/>
+		</song>
+		<song id="song5">
+			<song_name>neruppu da</song_name>
+			<artist_idref idrefs="artist1 artist4"/>
+			<album_idref idrefs="album1 album2 album3"/>
+		</song>
+		<song id="song6">
+			<song_name>the boys are back</song_name>
+			<artist_idref idref="artist4"/>
+			<album_idref idref="album2"/>
+		</song>
+		<song id="song7">
+			<song_name>neethanae</song_name>
+			<artist_idref idrefs="artist2 artist3"/>
+			<album_idref idrefs="album1 album3"/>
+		</song>
+		<song id="song8">
+			<song_name>ro ro roshini</song_name>
+			<artist_idref idrefs="artist1 artist2 artist3"/>
+			<album_idref idref="album3"/>
+		</song>
+		<song id="song9">
+			<song_name>break the rules</song_name>
+			<artist_idref idref="artist1"/>
+			<album_idref idrefs="album1 album2 album3"/>
+		</song>
+		<song id="song10">
+			<song_name>showkali</song_name>
+			<artist_idref idrefs="artist1 artist2"/>
+			<album_idref idrefs="album1 album2"/>
+		</song>
 
-<music >
-
-  <songs>
-
-    <song id="song1">
-      <song_name>taxi taxi</song_name>
-      <artist_idref idref="artist2" />
-      <album_idref idrefs="album1 album2"/>
-    </song>
-
-    <song id="song2">
-      <song_name>vennilave</song_name>
-      <artist_idref idrefs="artist1 artist3"/>
-      <album_idref idrefs="album2 album3"/>
-    </song>
-
-    <song id="song3">
-      <song_name>anbe anbe</song_name>
-      <artist_idref idrefs="artist2 artist4"/>
-      <album_idref idrefs="album1 album3"/>
-    </song>
-
-    <song id="song4">
-      <song_name>nanbane</song_name>
-      <artist_idref idref="artist3" />
-      <album_idref idref="album1"/>
-    </song>
-
-    <song id="song5">
-      <song_name>neruppu da</song_name>
-      <artist_idref idrefs="artist1 artist4" />
-      <album_idref idrefs="album1 album2 album3"/>
-    </song>
-
-    <song id="song6">
-      <song_name>the boys are back</song_name>
-      <artist_idref idref="artist4" />
-      <album_idref idref="album2"/>
-    </song>
-
-    <song id="song7">
-      <song_name>neethanae</song_name>
-      <artist_idref idrefs="artist2 artist3" />
-      <album_idref idrefs="album1 album3"/>
-    </song>
-
-    <song id="song8">
-      <song_name>ro ro roshini</song_name>
-      <artist_idref idrefs="artist1 artist2 artist3" />
-      <album_idref idref="album3"/>
-    </song>
-
-    <song id="song9">
-      <song_name>break the rules</song_name>
-      <artist_idref idref="artist1" />
-      <album_idref idrefs="album1 album2 album3"/>
-    </song>
-
-    <song id="song10">
-      <song_name>showkali</song_name>
-      <artist_idref idrefs="artist1 artist2" />
-      <album_idref idrefs="album1 album2"/>
-    </song>
-
-  </songs>
-
-  <artists>
-
-    <artist id="artist1">
-      <artist_name>spb</artist_name>
-      <songsOfArtist idrefs="song2 song5 song8 song9 song10"/>
-    </artist>
-
-    <artist id="artist2">
-      <artist_name>aadhi</artist_name>
-      <songOfArtist idrefs="song1 song3 song7 song8 song10"/>
-    </artist>
-
-    <artist id="artist3">
-      <artist_name>anirudh</artist_name>
-      <songOfArtist idrefs="song2 song4 song7 song8"/>
-    </artist>
-
-    <artist id="artist4">
-      <artist_name>priyanka</artist_name>
-      <songOfArtist idrefs="song3 song5 song6"/>
-    </artist>
-
-  </artists>
-
-  <albums>
-
-    <album id ="album1">
-      <album_name>hiphop</album_name>
-      <songsOfAlbum idrefs="song1 song3 song4 song5 song7 song9 song10"/>
-    </album>
-
-    <album id="album2">
-      <album_name>melody</album_name>
-      <songsOfAlbum idrefs="song1 song2 song5 song6 song9 song10"/>
-    </album>
-
-    <album id="album3">
-      <album_name>rock</album_name>
-      <songsOfAlbum idrefs="song2 song3 song5 song7 song8 song9"/>
-    </album>
-
-  </albums>
-
-  <playlists>
-
-    <playlist id ="playlist1">
-      <playlist_name>favorite</playlist_name>
-      <songsOfPlaylist idrefs="song1 song2 song3 song5 song6 song8 song10"/>
-    </playlist>
-
-    <playlist id="playlist2">
-      <playlist_name>trip</playlist_name>
-      <songsOfPlaylist idrefs="song1 song3 song4 song6 song7 song10"/>
-    </playlist>
-
-    <playlist id="playlist3">
-      <playlist_name>joy</playlist_name>
-      <songsOfPlaylist idrefs="song1 song2 song4 song6 song8 song9"/>
-    </playlist>
-
-  </playlists>
-
+	</songs>
+	<artists>
+		<artist id="artist1">
+			<artist_name>spb</artist_name>
+			<songsOfArtist idrefs="song2 song5 song8 song9 song10"/>
+		</artist>
+		<artist id="artist2">
+			<artist_name>aadhi</artist_name>
+			<songOfArtist idrefs="song1 song3 song7 song8 song10"/>
+		</artist>
+		<artist id="artist3">
+			<artist_name>anirudh</artist_name>
+			<songOfArtist idrefs="song2 song4 song7 song8"/>
+		</artist>
+		<artist id="artist4">
+			<artist_name>priyanka</artist_name>
+			<songOfArtist idrefs="song3 song5 song6"/>
+		</artist>
+	</artists>
+	<albums>
+		<album id="album1">
+			<album_name>hiphop</album_name>
+			<songsOfAlbum idrefs="song1 song3 song4 song5 song7 song9 song10"/>
+		</album>
+		<album id="album2">
+			<album_name>melody</album_name>
+			<songsOfAlbum idrefs="song1 song2 song5 song6 song9 song10"/>
+		</album>
+		<album id="album3">
+			<album_name>rock</album_name>
+			<songsOfAlbum idrefs="song2 song3 song5 song7 song8 song9"/>
+		</album>
+	</albums>
+	<playlists>
+		<playlist id="playlist1">
+			<playlist_name>favorite</playlist_name>
+			<songsOfPlaylist idrefs="song1 song2 song3 song5 song6 song8 song10"/>
+		</playlist>
+		<playlist id="playlist2">
+			<playlist_name>trip</playlist_name>
+			<songsOfPlaylist idrefs="song1 song3 song4 song6 song7 song10"/>
+		</playlist>
+		<playlist id="playlist3">
+			<playlist_name>joy</playlist_name>
+			<songsOfPlaylist idrefs="song1 song2 song4 song6 song8 song9"/>
+		</playlist>
+	</playlists>
 </music>
+

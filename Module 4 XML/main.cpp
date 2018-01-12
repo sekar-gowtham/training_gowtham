@@ -4,7 +4,8 @@
 #include"rapidxml_iterators.hpp"
 #include<iostream>
 #include<string>
-
+#include<fstream>
+#include<sstream>
 
 using namespace std;
 using namespace rapidxml;
@@ -136,18 +137,17 @@ bool didplayPlayListDetails(xml_node<>* node)
 	}
 	return 0;
 }
+
 void main()
 {
 	xml_document<> doc;
-	xml_document<> doc1;
+	
 	file<> xmlFile("data.xml");
 	doc.parse<0>(xmlFile.data());
 	
 
 	int choice = 0;
-	string s;
-	string data;
-	const char * text;
+	
 	
 	xml_node<> *node = doc.first_node();
 	xml_node<> *node1 = node->first_node();
@@ -155,6 +155,9 @@ void main()
 	xml_node<> *child;
 	xml_node<> *child1;
 	xml_node<> *child2;
+	xml_attribute<>*attr;
+	xml_attribute<>*attr1;
+	xml_attribute<>*attr2;
 	while (1)
 	{
 		cout << "\n\n1.somg details\n2.artist details\n3.album details\n4.playlist details\n5.Insert song\nEnter Choice " ;
@@ -162,6 +165,7 @@ void main()
 		switch (choice)
 		{
 		case 1:
+			
 			if (!displaySongDetails(node))
 			{
 				cout << "\nsong not found";
@@ -186,20 +190,47 @@ void main()
 			}
 			break;
 		case 5:
-			newnode = doc.allocate_node(node_element, "song", "");
 			
-			child = doc.allocate_node(node_element, "song_name", " aaaa ");
-			child1 = doc.allocate_node(node_element, "artist_idrefs", " ggggg ");
-			child2 = doc.allocate_node(node_element, "album_idres", " rrrrr ");
-			newnode->append_node(child);
-			newnode->append_node(child1);
-			newnode->append_node(child2);
-			node1->append_node(newnode);
-			print(cout, doc, 0);
-		
-
+			if (1)
+			{
+				char song_id[10];
+				char song_name[10];
+				char artist_ref[20];
+				char album_ref[20];
+				newnode = doc.allocate_node(node_element, "song", "");
+				cout << "\nEnter song id ";
+				cin >> song_id;
+				
+				attr = doc.allocate_attribute("id",&song_id[0]);
+				newnode->append_attribute(attr);
+				cout << "\nEnter song name ";
+				cin >> song_name;
+				child = doc.allocate_node(node_element, "song_name", &song_name[0]);
+				child1 = doc.allocate_node(node_element, "artist_idref", "");
+				cout << "\nEnter artist reference ";
+				cin >> artist_ref;
+				attr1 = doc.allocate_attribute("idrefs", &artist_ref[0]);
+				child1->append_attribute(attr1);
+				child2 = doc.allocate_node(node_element, "album_idref", "");
+				cout << "\nEnter album reference ";
+				cin >> album_ref;
+				attr2 = doc.allocate_attribute("idrefs", &album_ref[0]);
+				child2->append_attribute(attr2);
+				newnode->append_node(child);
+				newnode->append_node(child1);
+				newnode->append_node(child2);
+				node1->append_node(newnode);
+				ofstream file_stored("data.xml");
+				file_stored << doc;
+				file_stored.close();
+				cout << "\nsong added\n";
+				
+				print(cout, doc, 0);
+				
+			}
 			break;
 		case 0:
+			doc.clear();
 			exit(0);
 		default:
 			cout << "\nEnter valid choice ";
