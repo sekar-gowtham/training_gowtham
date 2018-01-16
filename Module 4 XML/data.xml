@@ -51,6 +51,7 @@
 			<artist_idref idrefs="artist1 artist2"/>
 			<album_idref idrefs="album1 album2"/>
 		</song>
+	
 	</songs>
 	<artists>
 		<artist id="artist1">
@@ -69,6 +70,7 @@
 			<artist_name>priyanka</artist_name>
 			<songOfArtist idrefs="song3 song5 song6"/>
 		</artist>
+		
 	</artists>
 	<albums>
 		<album id="album1">
@@ -83,6 +85,7 @@
 			<album_name>rock</album_name>
 			<songsOfAlbum idrefs="song2 song3 song5 song7 song8 song9"/>
 		</album>
+	
 	</albums>
 	<playlists>
 		<playlist id="playlist1">
