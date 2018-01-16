@@ -62,7 +62,7 @@
                     <xs:element name="album_name" type="xs:string" />
                     <xs:element name="songsOfAlbum">
                       <xs:complexType>
-                        <xs:attribute name="idrefs" type="xs:IDREFS" use="required" />
+                        <xs:attribute name="idrefs" type="xs:IDREFS"  use="required" />
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>

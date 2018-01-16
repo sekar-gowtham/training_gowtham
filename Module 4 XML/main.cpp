@@ -212,37 +212,37 @@ void insertSong(xml_document<> &document1)
 	char artist_ref[20];
 	char album_ref[20];
 	xml_node<> *node = document1.first_node();
-	xml_node<> *node1 = node->first_node();
-	xml_node<> *newnode;
-	xml_node<> *child;
-	xml_node<> *child1;
-	xml_node<> *child2;
-	xml_attribute<>*attribute;
-	xml_attribute<>*attribute1;
-	xml_attribute<>*attribute2;
-	newnode = document1.allocate_node(node_element, "song", "");
+	xml_node<> *songs_tag = node->first_node();
+	xml_node<> *song_tag;
+	xml_node<> *name_tag;
+	xml_node<> *artist_reference_tag;
+	xml_node<> *album_reference_tag;
+	xml_attribute<> *songId;
+	xml_attribute<> *artist_id;
+	xml_attribute<> *album_id;
+	song_tag = document1.allocate_node(node_element, "song", "");
 	cout << "\nEnter song id ";
 	cin >> song_id;
-	attribute = document1.allocate_attribute("id", song_id);
-	newnode->append_attribute(attribute);
+	songId = document1.allocate_attribute("id", song_id);
+	song_tag->append_attribute(songId);
 	cout << "\nEnter song name ";
 	cin.ignore();
 	gets_s(song_name);
-	child = document1.allocate_node(node_element, "song_name", song_name);								//create song_name tag
-	child1 = document1.allocate_node(node_element, "artist_idref", "");									//create artist_idref tag
+	name_tag = document1.allocate_node(node_element, "song_name", song_name);								//create song_name tag
+	artist_reference_tag = document1.allocate_node(node_element, "artist_idref", "");									//create artist_idref tag
 	cout << "\nEnter artist reference ";
 	gets_s(artist_ref);
-	attribute1 = document1.allocate_attribute("idrefs", artist_ref);
-	child1->append_attribute(attribute1);
-	child2 = document1.allocate_node(node_element, "album_idref", "");									//create album_idref tag
+	artist_id = document1.allocate_attribute("idrefs", artist_ref);
+	artist_reference_tag->append_attribute(artist_id);
+	album_reference_tag = document1.allocate_node(node_element, "album_idref", "");									//create album_idref tag
 	cout << "\nEnter album reference ";
 	gets_s(album_ref);
-	attribute2 = document1.allocate_attribute("idrefs", album_ref);
-	child2->append_attribute(attribute2);
-	newnode->append_node(child);																	//insert child, child1, child2 into newnode (ie) song tag
-	newnode->append_node(child1);
-	newnode->append_node(child2);
-	node1->append_node(newnode);																	//insert newnode into node1 (ie) songs tag
+	album_id = document1.allocate_attribute("idrefs", album_ref);
+	album_reference_tag->append_attribute(album_id);
+	song_tag->append_node(name_tag);																	//insert child, child1, child2 into newnode (ie) song tag
+	song_tag->append_node(artist_reference_tag);
+	song_tag->append_node(album_reference_tag);
+	songs_tag->append_node(song_tag);																	//insert newnode into node1 (ie) songs tag
 	ofstream file_stored("data.xml");
 	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
 	file_stored << document1;
@@ -256,29 +256,29 @@ void insertArtist(xml_document<> &document1)
 	char artist_name[20];
 	char song_refs[20];
 	xml_node<> *node = document1.first_node();
-	xml_node<> *node1 = node->first_node()->next_sibling();
-	xml_node<> *newnode;
-	xml_node<> *child;
-	xml_node<> *child1;
-	xml_attribute<>*attribute;
-	xml_attribute<>*attribute1;
-	newnode = document1.allocate_node(node_element, "artist", "");									
+	xml_node<> *artists_tag = node->first_node()->next_sibling();
+	xml_node<> *artist_tag;
+	xml_node<> *name_tag;
+	xml_node<> *song_reference_tag;
+	xml_attribute<>*artistId;
+	xml_attribute<>*song_id;
+	artist_tag = document1.allocate_node(node_element, "artist", "");
 	cout << "\nEnter artist id ";
 	cin >> artist_id;
-	attribute = document1.allocate_attribute("id", artist_id);
-	newnode->append_attribute(attribute);
+	artistId = document1.allocate_attribute("id", artist_id);
+	artist_tag->append_attribute(artistId);
 	cout << "\nEnter artist name ";
 	cin.ignore();
 	gets_s(artist_name);
-	child = document1.allocate_node(node_element, "artist_name", artist_name);							//create artist_name tag
-	child1 = document1.allocate_node(node_element, "songsOfArtist", "");									//create songsOfArtist tag
+	name_tag = document1.allocate_node(node_element, "artist_name", artist_name);							//create artist_name tag
+	song_reference_tag = document1.allocate_node(node_element, "songsOfArtist", "");									//create songsOfArtist tag
 	cout << "\nEnter songs reference ";
 	gets_s(song_refs);
-	attribute1 = document1.allocate_attribute("idrefs", song_refs);
-	child1->append_attribute(attribute1);
-	newnode->append_node(child);																	//insert child, child1 into newnode (ie) artist tag
-	newnode->append_node(child1);
-	node1->append_node(newnode);																	//insert newnode into node1 (ie) artists tag
+	song_id = document1.allocate_attribute("idrefs", song_refs);
+	song_reference_tag->append_attribute(song_id);
+	artist_tag->append_node(name_tag);																	//insert child, child1 into newnode (ie) artist tag
+	artist_tag->append_node(song_reference_tag);
+	artists_tag->append_node(artist_tag);																	//insert newnode into node1 (ie) artists tag
 	ofstream file_stored("data.xml");
 	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
 	file_stored << document1;
@@ -292,64 +292,64 @@ void insertAlbum(xml_document<> &document1)
 	char album_name[20];
 	char song_refs[20];
 	xml_node<> *node = document1.first_node();
-	xml_node<> *node1 = node->first_node()->next_sibling()->next_sibling();
-	xml_node<> *newnode;
-	xml_node<> *child;
-	xml_node<> *child1;
-	xml_attribute<>*attribute;
-	xml_attribute<>*attribute1;
-	newnode = document1.allocate_node(node_element, "album", "");
+	xml_node<> *albums_tag = node->first_node()->next_sibling()->next_sibling();
+	xml_node<> *album_tag;
+	xml_node<> *name_tag;
+	xml_node<> *song_reference_tag;
+	xml_attribute<>*albumId;
+	xml_attribute<>*song_id;
+	album_tag = document1.allocate_node(node_element, "album", "");
 	cout << "\nEnter album id ";
 	cin >> album_id;
-	attribute = document1.allocate_attribute("id", album_id);
-	newnode->append_attribute(attribute);
+	albumId = document1.allocate_attribute("id", album_id);
+	album_tag->append_attribute(albumId);
 	cout << "\nEnter album name ";
 	cin.ignore();
 	gets_s(album_name);
-	child = document1.allocate_node(node_element, "album_name", album_name);								//create album_name tag
-	child1 = document1.allocate_node(node_element, "songsOfAlbum", "");									//create songsOfAlbum tag
+	name_tag = document1.allocate_node(node_element, "album_name", album_name);								//create album_name tag
+	song_reference_tag = document1.allocate_node(node_element, "songsOfAlbum", "");									//create songsOfAlbum tag
 	cout << "\nEnter songs reference ";
 	gets_s(song_refs);
-	attribute1 = document1.allocate_attribute("idrefs", song_refs);
-	child1->append_attribute(attribute1);
-	newnode->append_node(child);																	//insert child, child1 into newnode (ie) album tag
-	newnode->append_node(child1);
-	node1->append_node(newnode);																	//insert newnode into node1 (ie) albums tag
+	song_id = document1.allocate_attribute("idrefs", song_refs);
+	song_reference_tag->append_attribute(song_id);
+	album_tag->append_node(name_tag);																	//insert child, child1 into newnode (ie) album tag
+	album_tag->append_node(song_reference_tag);
+	albums_tag->append_node(album_tag);																	//insert newnode into node1 (ie) albums tag
 	ofstream file_stored("data.xml");
 	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
 	file_stored << document1;
 	file_stored.close();
 	cout << "\nalbum added\n";
 }
-void insertPlaylists(xml_document<> &document1)
+void insertPlaylist(xml_document<> &document1)
 {
 	char playlist_id[10];
 	char playlist_name[20];
 	char song_refs[20];
 	xml_node<> *node = document1.first_node();
-	xml_node<> *node1 = node->first_node()->next_sibling()->next_sibling()->next_sibling();
-	xml_node<> *newnode;
-	xml_node<> *child;
-	xml_node<> *child1;
-	xml_attribute<>*attribute;
-	xml_attribute<>*attribute1;
-	newnode = document1.allocate_node(node_element, "playlist", "");
+	xml_node<> *playlists_tag = node->first_node()->next_sibling()->next_sibling()->next_sibling();
+	xml_node<> *playlist_tag;
+	xml_node<> *name_tag;
+	xml_node<> *song_reference_tag;
+	xml_attribute<>*playlistId;
+	xml_attribute<>*song_id;
+	playlist_tag = document1.allocate_node(node_element, "playlist", "");
 	cout << "\nEnter playlist id ";
 	cin >> playlist_id;
-	attribute = document1.allocate_attribute("id", playlist_id);
-	newnode->append_attribute(attribute);
+	playlistId = document1.allocate_attribute("id", playlist_id);
+	playlist_tag->append_attribute(playlistId);
 	cout << "\nEnter playlist name ";
 	cin.ignore();
 	gets_s(playlist_name);
-	child = document1.allocate_node(node_element, "playlist_name", playlist_name);								//create playlist_name tag
-	child1 = document1.allocate_node(node_element, "songsOfPlaylist", "");										//create songsOfPlaylist tag
+	name_tag = document1.allocate_node(node_element, "playlist_name", playlist_name);								//create playlist_name tag
+	song_reference_tag = document1.allocate_node(node_element, "songsOfPlaylist", "");										//create songsOfPlaylist tag
 	cout << "\nEnter songs reference ";
 	gets_s(song_refs);
-	attribute1 = document1.allocate_attribute("idrefs", song_refs);
-	child1->append_attribute(attribute1);
-	newnode->append_node(child);																			//insert child, child1 into newnode (ie) playlist tag
-	newnode->append_node(child1);
-	node1->append_node(newnode);																			//insert newnode into node1 (ie) playlists tag
+	song_id = document1.allocate_attribute("idrefs", song_refs);
+	song_reference_tag->append_attribute(song_id);
+	playlist_tag->append_node(name_tag);																			//insert child, child1 into newnode (ie) playlist tag
+	playlist_tag->append_node(song_reference_tag);
+	playlists_tag->append_node(playlist_tag);																			//insert newnode into node1 (ie) playlists tag
 	ofstream file_stored("data.xml");
 	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
 	file_stored << document1;
@@ -369,9 +369,9 @@ void main()
 		document.parse<0>(&content[0]);
 		xml_node<> *node = document.first_node();
 		int choice = 0;
-		cout << "\n\n1.Display song details\n2.Display artist details\n3.Display album details\n4.Display playlist details\n5.Insert song " ;
-		cout << "\n6.Create artist\n7.create album\n8.create playlist";
-		cout << "\n9.Display all songs\n10.display all artist\n11.display all albums\n12.display all playlists\nEnter Choice ";
+		cout << "\n\n1.Display particular song details\n2.Display particular artist details\n3.Display particular album details\n4.Display particular playlist details" ;
+		cout << "\n5.Insert song\n6.Create new artist\n7.create new album\n8.create new playlist";
+		cout << "\n9.Display all songs\n10.display all artists\n11.display all albums\n12.display all playlists\nEnter Choice ";
 		choice = validChoice();
 		switch (choice)
 		{
@@ -409,7 +409,7 @@ void main()
 			insertAlbum(document);
 			break;
 		case 8:
-			insertPlaylists(document);
+			insertPlaylist(document);
 			break;
 		case 9:
 			diplayAllSongs(node);
