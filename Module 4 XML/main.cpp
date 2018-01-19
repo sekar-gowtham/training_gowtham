@@ -27,6 +27,16 @@ int validChoice()
 	} while (1 == error);
 	return choice;
 }
+int nodeCount(xml_node<>*node)
+{
+	int count = 0;
+	while (node != NULL)
+	{
+		count++;
+		node = node->next_sibling();
+	}
+	return count;
+}
 string findArtistName(string artistid, xml_node<>* node)
 {
 	xml_node<>* child1 = node->first_node()->next_sibling();								//child1 node refers the artists tag
@@ -91,7 +101,6 @@ bool displaySongDetails(xml_node<>* node)
 	}
 	return 0;
 }
-
 string findSongName(string songId, xml_node<>* node)
 {
 	xml_node<>* child = node->first_node()->first_node();									//child node refers the song tag
@@ -106,7 +115,6 @@ string findSongName(string songId, xml_node<>* node)
 		child = child->next_sibling();
 	}
 }
-
 bool displayArtistDetails(xml_node<>* node)
 {
 	string artist_name;
@@ -214,12 +222,16 @@ void diplayAllSongs(xml_node<>* node)
 		while (artist_ref.compare(element->name()) == 0)
 		{
 			attribute = element->first_attribute();
-			cout << findArtistName(attribute->value(), node) << "\n";
+			cout << findArtistName(attribute->value(), node) <<endl;
 			element = element->next_sibling();
 		}
-		attribute = element->first_attribute();
-		cout << "\nalbum name: " << findAlbumName(attribute->value(), node);
-
+		cout << "\nAlbum names ";
+		while (element != NULL)
+		{
+			attribute = element->first_attribute();
+			cout << findAlbumName(attribute->value(), node)<<endl;
+			element = element->next_sibling();
+		}
 
 		child = child->next_sibling();
 		cout << "\n";
@@ -295,46 +307,261 @@ void displayAllPlaylists(xml_node<>*node)
 		cout << "\n";
 	}
 }
-
-void insertIdref(xml_document<> &document2, xml_node<> *song_tag)
+bool isSong(string song_name, xml_node<> *node)
 {
-	
-
-	string artist_ref;
-	cout << "\nEnter artist ref ";
-	cin.ignore();
-	getline(cin, artist_ref);
-	cout << artist_ref;
-	xml_node<> *artist_reference_tag = document2.allocate_node(node_element, "artist_idref", "");									//create artist_idref tag
-
-	xml_attribute<> *artist_id = document2.allocate_attribute("idref",artist_ref.c_str());
-	artist_reference_tag->append_attribute(artist_id);
-	song_tag->append_node(artist_reference_tag);
-
-
+	xml_node<>* child = node->first_node()->first_node();									//child node refers the song tag
+	while (child != NULL)
+	{
+		xml_node<>*element = child->first_node();											//element node refers the first node inside the song tag
+		if (song_name.compare(element->value()) == 0)
+		{
+			return 1;
+		}
+		child = child->next_sibling();
+	}
+	return 0;
 }
+bool isArtist(string artist_name, xml_node<> *node)
+{
+	xml_node<>* child1 = node->first_node()->next_sibling();								//child1 node refers the artists tag
+	xml_node<>* child = child1->first_node();												//child node refers the artist tag
+	while (child != NULL)
+	{
+		xml_node<>*element = child->first_node();											//element node refers the first node inside the artist tag
+		if (artist_name.compare(element->value()) == 0)
+		{
 
-void insertSong(xml_document<> &document1)
+			return 1;
+		}
+		child = child->next_sibling();
+	}
+	return 0;
+}
+bool isAlbum(string album_name, xml_node<> *node)
+{
+	xml_node<>* child1 = node->first_node()->next_sibling()->next_sibling();				//child1 node refers the albums tag
+	xml_node<>*child = child1->first_node();												//child node refers the album tag
+	while (child != NULL)
+	{
+		xml_node<>*element = child->first_node();											//element node refers the first node inside the album tag
+		if (album_name.compare(element->value()) == 0)
+		{
+
+			return 1;
+		}
+		child = child->next_sibling();
+	}
+	return 0;
+}
+bool isPlaylist(string playlist_name, xml_node<> *node1)
+{
+	xml_node<>* child1 = node1->first_node()->next_sibling()->next_sibling()->next_sibling();			//child1 node refers the playlists tag
+	xml_node<>*child = child1->first_node();															//child node refers the playlist tag
+	while (child != NULL)
+	{
+		xml_node<>*element = child->first_node();														//element node refers the first node inside the playlist tag
+		if (playlist_name.compare(element->value()) == 0)
+		{
+			return 1;
+		}
+		child = child->next_sibling();
+	}
+	return 0;
+}
+string findSongId(string song_name, xml_node<> *node)
+{
+
+	xml_node<>* child = node->first_node()->first_node();									//child node refers the song tag
+	xml_attribute<>*attribute = child->first_attribute();
+	while (child != NULL)
+	{
+		xml_node<>*element = child->first_node();											//element node refers the first node inside the song tag
+		if (song_name.compare(element->value()) == 0)
+		{
+			return attribute->value();
+		}
+		child = child->next_sibling();
+		attribute = child->first_attribute();
+	}
+}
+string findArtistId(string artist_name, xml_node<> *node)
+{
+	xml_node<>* child1 = node->first_node()->next_sibling();								//child1 node refers the artists tag
+	xml_node<>* child = child1->first_node();												//child node refers the artist tag
+	xml_attribute<>*attribute = child->first_attribute();
+	while (child != NULL)
+	{
+		xml_node<>*element = child->first_node();											//element node refers the first node inside the artist tag
+		if (artist_name.compare(element->value()) == 0)
+		{
+			return attribute->value();
+		}
+		child = child->next_sibling();
+		attribute = child->first_attribute();
+	}
+}
+string findAlbumId(string album_name, xml_node<> *node)
+{
+	xml_node<>* child1 = node->first_node()->next_sibling()->next_sibling();				//child1 node refers the albums tag
+	xml_node<>*child = child1->first_node();												//child node refers the album tag
+	xml_attribute<>*attribute = child->first_attribute();
+	while (child != NULL)
+	{
+		xml_node<>*element = child->first_node();											//element node refers the first node inside the album tag
+		if (album_name.compare(element->value()) == 0)
+		{
+			return attribute->value();
+		}
+		child = child->next_sibling();
+		attribute = child->first_attribute();
+	}
+}
+string findPlaylistId(string playlist_name, xml_node<> *node1)
+{
+	xml_node<>* child1 = node1->first_node()->next_sibling()->next_sibling()->next_sibling();			//child1 node refers the playlists tag
+	xml_node<>*child = child1->first_node();															//child node refers the playlist tag
+	xml_attribute<>*attribute = child->first_attribute();
+	while (child != NULL)
+	{
+		xml_node<>*element = child->first_node();											//element node refers the first node inside the album tag
+		if (playlist_name.compare(element->value()) == 0)
+		{
+			return attribute->value();
+		}
+		child = child->next_sibling();
+		attribute = child->first_attribute();
+	}
+}
+void insertSongInArtist(xml_document<> &document1, string song_id, string artist_id)
+{
+	xml_node<> *node = document1.first_node();
+	xml_node<> *artists_tag = node->first_node()->next_sibling();
+	xml_node<> *artist_tag = artists_tag->first_node();
+	xml_attribute<> *attribute = artist_tag->first_attribute();
+	while (artist_tag != NULL)
+	{
+		if (artist_id.compare(attribute->value()) == 0)
+		{
+			xml_node<> *song_artist = document1.allocate_node(node_element, "songsOfArtist", "");
+			xml_attribute<> *song_reference = document1.allocate_attribute("idref", song_id.c_str());
+			song_artist->append_attribute(song_reference);
+			artist_tag->append_node(song_artist);
+			break;
+		}
+		artist_tag = artist_tag->next_sibling();
+		attribute = artist_tag->first_attribute();
+	}
+	ofstream file_stored("data.xml");
+	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
+	file_stored << document1;
+	file_stored.close();
+}
+void callInsertSongInArtist(xml_document<> &document1)
+{
+	xml_node<>*node = document1.first_node();
+	string song_id;
+	string song_name;
+	string artist_id;
+	string artist_name;
+	cout << "Enter artist name ";
+	cin.ignore();
+	getline(cin, artist_name);
+	if (isArtist(artist_name, node))
+	{
+		artist_id = findArtistId(artist_name, node);
+		cout << "Enter song name ";
+		getline(cin, song_name);
+		if (isSong(song_name, node))
+		{
+			song_id = findSongId(song_name, node);
+			insertSongInArtist(document1, song_id, artist_id);
+			cout << "\nSong added in the artist ";
+		}
+		else
+		{
+			cout << "Song not found try again";
+		}
+	}
+	else
+	{
+		cout << "Artist not found try again";
+	}
+}
+void insertSongInAlbum(xml_document<> &document1, string song_id, string album_id)
+{
+	xml_node<> *node = document1.first_node();
+	xml_node<> *albums_tag = node->first_node()->next_sibling()->next_sibling();
+	xml_node<> *album_tag = albums_tag->first_node();
+	xml_attribute<> *attribute = album_tag->first_attribute();
+	while (album_tag != NULL)
+	{
+		if (album_id.compare(attribute->value()) == 0)
+		{
+			xml_node<> *song_artist = document1.allocate_node(node_element, "songsOfAlbum", "");
+			xml_attribute<> *song_reference = document1.allocate_attribute("idref", song_id.c_str());
+			song_artist->append_attribute(song_reference);
+			album_tag->append_node(song_artist);
+			break;
+		}
+		album_tag = album_tag->next_sibling();
+		attribute = album_tag->first_attribute();
+	}
+	ofstream file_stored("data.xml");
+	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
+	file_stored << document1;
+	file_stored.close();
+}
+void callInsertSongInAlbum(xml_document<> &document1)
+{
+	xml_node<>*node = document1.first_node();
+	string song_id;
+	string song_name;
+	string album_id;
+	string album_name;
+	cout << "Enter artist name ";
+	cin.ignore();
+	getline(cin, album_name);
+	if (isAlbum(album_name, node))
+	{
+		album_id = findAlbumId(album_name, node);
+		cout << "Enter song name ";
+		getline(cin, song_name);
+		if (isSong(song_name, node))
+		{
+			song_id = findSongId(song_name, node);
+			insertSongInAlbum(document1, song_id, album_id);
+			cout << "\nSong added in the artist ";
+		}
+		else
+		{
+			cout << "Song not found try again";
+		}
+	}
+	else
+	{
+		cout << "Artist not found try again";
+	}
+}
+void createSong(xml_document<> &document1)
 {
 	string song_id;
 	string song_name;
-	
-	string album_ref;
-	static int id = 11;
-	song_id = "song" + to_string(id);
-	id++;
+	string artist_name;
+	string album_name;
+	string artistId;
+	string  albumId;
+
 	xml_node<> *node = document1.first_node();
 	xml_node<> *songs_tag = node->first_node();
 	xml_node<> *song_tag;
 	xml_node<> *name_tag;
-	//xml_node<> *artist_reference_tag;
 	xml_node<> *album_reference_tag;
 	xml_attribute<> *songId;
-	//xml_attribute<> *artist_id;
 	xml_attribute<> *album_id;
-	int count;
+	int id = nodeCount(songs_tag->first_node()) + 1;
+	song_id = "song" + to_string(id);
+	id++;
 	song_tag = document1.allocate_node(node_element, "song", "");
-	
 	songId = document1.allocate_attribute("id", song_id.c_str());
 	song_tag->append_attribute(songId);
 	cout << "\nEnter song name ";
@@ -342,37 +569,74 @@ void insertSong(xml_document<> &document1)
 	getline(cin,song_name);
 	name_tag = document1.allocate_node(node_element, "song_name", song_name.c_str());								//create song_name tag
 	song_tag->append_node(name_tag);
-	
-	cout << "how many artists in this song ";
-	cin >> count;
-	while (count--)
-	{
-		
-
-		insertIdref(document1, song_tag);
-	}
-
+		while (1)
+		{
+			cout << "\nEnter artist name which is present in the list ";
+			getline(cin, artist_name);
+			if (isArtist(artist_name, node))
+			{
+				artistId=findArtistId(artist_name, node);
+				break;
+			}
+		}
+		xml_node<> *artist_reference_tag = document1.allocate_node(node_element, "artist_idref", "");									//create artist_idref tag
+		xml_attribute<> *artist_id = document1.allocate_attribute("idref", artistId.c_str());
+		artist_reference_tag->append_attribute(artist_id);
+		song_tag->append_node(artist_reference_tag);
+		while (1)
+		{
+			cout << "\nEnter album name which is present in the list ";
+			getline(cin, album_name);
+			if (isAlbum(album_name, node))
+			{
+				albumId = findAlbumId(album_name, node);
+				break;
+			}
+		}
 	album_reference_tag = document1.allocate_node(node_element, "album_idref", "");									//create album_idref tag
-	cout << "\nEnter album reference ";
-	getline(cin,album_ref);
-	album_id = document1.allocate_attribute("idref", album_ref.c_str());
+	album_id = document1.allocate_attribute("idref", albumId.c_str());
 	album_reference_tag->append_attribute(album_id);
 	song_tag->append_node(album_reference_tag);
 	songs_tag->append_node(song_tag);																	//insert song_tag into songs_tag
-
-
 	ofstream file_stored("data.xml");
 	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
 	file_stored << document1;
 	file_stored.close();
 	cout << "\nsong added\n";
-}
 
-void insertArtist(xml_document<> &document1)
+	insertSongInArtist(document1, song_id, artistId);
+	insertSongInAlbum(document1, song_id, albumId);
+}
+void insertArtistInSong(xml_document<> &document1,string artistId, string song_id)
 {
-	char artist_id[10];
-	char artist_name[20];
-	char song_refs[20];
+	xml_node<> *node = document1.first_node();
+	xml_node<> *songs_tag = node->first_node();
+	xml_node<> *song_tag = songs_tag->first_node();
+	xml_attribute<> *attribute = song_tag->first_attribute();
+	while (song_tag != NULL)
+	{
+		if (song_id.compare(attribute->value()) == 0)
+		{
+			xml_node<> *artist_reference_tag = document1.allocate_node(node_element, "artist_idref", "");									//create artist_idref tag
+			xml_attribute<> *artist_id = document1.allocate_attribute("idref", artistId.c_str());
+			artist_reference_tag->append_attribute(artist_id);
+			song_tag->insert_node(song_tag->first_node()->next_sibling(),artist_reference_tag);
+			break;
+		}
+		song_tag = song_tag->next_sibling();
+		attribute = song_tag->first_attribute();
+	}
+	ofstream file_stored("data.xml");
+	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
+	file_stored << document1;
+	file_stored.close();
+}
+void createArtist(xml_document<> &document1)
+{
+	string artist_id;
+	string artist_name;
+	string song_name;
+	string songId;
 	xml_node<> *node = document1.first_node();
 	xml_node<> *artists_tag = node->first_node()->next_sibling();
 	xml_node<> *artist_tag;
@@ -380,19 +644,28 @@ void insertArtist(xml_document<> &document1)
 	xml_node<> *song_reference_tag;
 	xml_attribute<>*artistId;
 	xml_attribute<>*song_id;
+	int id = nodeCount(artists_tag->first_node()) + 1;
+	artist_id = "artist" + to_string(id);
+	id++;
 	artist_tag = document1.allocate_node(node_element, "artist", "");
-	cout << "\nEnter artist id ";
-	cin >> artist_id;
-	artistId = document1.allocate_attribute("id", artist_id);
+	artistId = document1.allocate_attribute("id", artist_id.c_str());
 	artist_tag->append_attribute(artistId);
 	cout << "\nEnter artist name ";
 	cin.ignore();
-	gets_s(artist_name);
-	name_tag = document1.allocate_node(node_element, "artist_name", artist_name);							//create artist_name tag
+	getline(cin,artist_name);
+	name_tag = document1.allocate_node(node_element, "artist_name", artist_name.c_str());							//create artist_name tag
 	song_reference_tag = document1.allocate_node(node_element, "songsOfArtist", "");									//create songsOfArtist tag
-	cout << "\nEnter songs reference ";
-	gets_s(song_refs);
-	song_id = document1.allocate_attribute("idrefs", song_refs);
+	while (1)
+	{
+		cout << "\nEnter songs name which is present in the list ";
+		getline(cin, song_name);
+		if (isSong(song_name, node))
+		{
+			songId = findSongId(song_name, node);
+			break;
+		}
+	}
+	song_id = document1.allocate_attribute("idref", songId.c_str());
 	song_reference_tag->append_attribute(song_id);
 	artist_tag->append_node(name_tag);																	//insert name_tag,song_reference_tag into artist_tag
 	artist_tag->append_node(song_reference_tag);
@@ -402,13 +675,38 @@ void insertArtist(xml_document<> &document1)
 	file_stored << document1;
 	file_stored.close();
 	cout << "\nartist added\n";
+	insertArtistInSong(document1, artist_id, songId);
 }
-
-void insertAlbum(xml_document<> &document1)
+void insertAlbumInSong(xml_document<> &document1, string albumId, string song_id)
 {
-	char album_id[10];
-	char album_name[20];
-	char song_refs[20];
+	xml_node<> *node = document1.first_node();
+	xml_node<> *songs_tag = node->first_node();
+	xml_node<> *song_tag = songs_tag->first_node();
+	xml_attribute<> *attribute = song_tag->first_attribute();
+	while (song_tag != NULL)
+	{
+		if (song_id.compare(attribute->value()) == 0)
+		{
+			xml_node<> *album_reference_tag = document1.allocate_node(node_element, "album_idref", "");									//create album_idref tag
+			xml_attribute<> *album_id = document1.allocate_attribute("idref", albumId.c_str());
+			album_reference_tag->append_attribute(album_id);
+			song_tag->append_node(album_reference_tag);
+			break;
+		}
+		song_tag = song_tag->next_sibling();
+		attribute = song_tag->first_attribute();
+	}
+	ofstream file_stored("data.xml");
+	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
+	file_stored << document1;
+	file_stored.close();
+}
+void createAlbum(xml_document<> &document1)
+{
+	string album_id;
+	string album_name;
+	string song_name;
+	string songId;
 	xml_node<> *node = document1.first_node();
 	xml_node<> *albums_tag = node->first_node()->next_sibling()->next_sibling();
 	xml_node<> *album_tag;
@@ -416,19 +714,29 @@ void insertAlbum(xml_document<> &document1)
 	xml_node<> *song_reference_tag;
 	xml_attribute<>*albumId;
 	xml_attribute<>*song_id;
+	int id = nodeCount(albums_tag->first_node()) + 1;
+
 	album_tag = document1.allocate_node(node_element, "album", "");
-	cout << "\nEnter album id ";
-	cin >> album_id;
-	albumId = document1.allocate_attribute("id", album_id);
+	album_id = "album" + to_string(id);
+	albumId = document1.allocate_attribute("id", album_id.c_str());
 	album_tag->append_attribute(albumId);
 	cout << "\nEnter album name ";
 	cin.ignore();
-	gets_s(album_name);
-	name_tag = document1.allocate_node(node_element, "album_name", album_name);								//create album_name tag
+	getline(cin,album_name);
+	name_tag = document1.allocate_node(node_element, "album_name", album_name.c_str());								//create album_name tag
 	song_reference_tag = document1.allocate_node(node_element, "songsOfAlbum", "");									//create songsOfAlbum tag
-	cout << "\nEnter songs reference ";
-	gets_s(song_refs);
-	song_id = document1.allocate_attribute("idrefs", song_refs);
+
+	while (1)
+	{
+		cout << "\nEnter songs name which is present in the list ";
+		getline(cin, song_name);
+		if (isSong(song_name, node))
+		{
+			songId = findSongId(song_name, node);
+			break;
+		}
+	}
+	song_id = document1.allocate_attribute("idref", songId.c_str());
 	song_reference_tag->append_attribute(song_id);
 	album_tag->append_node(name_tag);																	//insert name_tag, song_reference_tag into  album_tag
 	album_tag->append_node(song_reference_tag);
@@ -438,12 +746,14 @@ void insertAlbum(xml_document<> &document1)
 	file_stored << document1;
 	file_stored.close();
 	cout << "\nalbum added\n";
+	insertAlbumInSong(document1, album_id, songId);
 }
-void insertPlaylist(xml_document<> &document1)
+void createPlaylist(xml_document<> &document1)
 {
-	char playlist_id[10];
-	char playlist_name[20];
-	char song_refs[20];
+	string playlist_id;
+	string playlist_name;
+	string song_name;
+	string songId;
 	xml_node<> *node = document1.first_node();
 	xml_node<> *playlists_tag = node->first_node()->next_sibling()->next_sibling()->next_sibling();
 	xml_node<> *playlist_tag;
@@ -451,19 +761,27 @@ void insertPlaylist(xml_document<> &document1)
 	xml_node<> *song_reference_tag;
 	xml_attribute<>*playlistId;
 	xml_attribute<>*song_id;
+	int id = nodeCount(playlists_tag->first_node()) + 1;
+	playlist_id = "playlist" + to_string(id);
 	playlist_tag = document1.allocate_node(node_element, "playlist", "");
-	cout << "\nEnter playlist id ";
-	cin >> playlist_id;
-	playlistId = document1.allocate_attribute("id", playlist_id);
+	playlistId = document1.allocate_attribute("id", playlist_id.c_str());
 	playlist_tag->append_attribute(playlistId);
 	cout << "\nEnter playlist name ";
 	cin.ignore();
-	gets_s(playlist_name);
-	name_tag = document1.allocate_node(node_element, "playlist_name", playlist_name);								//create playlist_name tag
+	getline(cin,playlist_name);
+	name_tag = document1.allocate_node(node_element, "playlist_name", playlist_name.c_str());								//create playlist_name tag
 	song_reference_tag = document1.allocate_node(node_element, "songsOfPlaylist", "");										//create songsOfPlaylist tag
-	cout << "\nEnter songs reference ";
-	gets_s(song_refs);
-	song_id = document1.allocate_attribute("idrefs", song_refs);
+	while (1)
+	{
+		cout << "\nEnter songs name which is present in the list ";
+		getline(cin, song_name);
+		if (isSong(song_name, node))
+		{
+			songId = findSongId(song_name, node);
+			break;
+		}
+	}
+	song_id = document1.allocate_attribute("idref", songId.c_str());
 	song_reference_tag->append_attribute(song_id);
 	playlist_tag->append_node(name_tag);																			//insert name_tag,song_reference_tag into playlist_tag
 	playlist_tag->append_node(song_reference_tag);
@@ -473,6 +791,125 @@ void insertPlaylist(xml_document<> &document1)
 	file_stored << document1;
 	file_stored.close();
 	cout << "\nplaylist added\n";
+}
+void insertSongInPlaylist(xml_document<> &document1, string playlist_id, string song_id)
+{
+	xml_node<> *node = document1.first_node();
+	xml_node<> *playlists_tag = node->first_node()->next_sibling()->next_sibling()->next_sibling();
+	xml_node<> *playlist_tag = playlists_tag->first_node();
+	xml_attribute<> *attribute = playlist_tag->first_attribute();
+	while (playlist_tag != NULL)
+	{
+		if (playlist_id.compare(attribute->value()) == 0)
+		{
+			xml_node<> *song_artist = document1.allocate_node(node_element, "songsOfPlaylist", "");
+			xml_attribute<> *song_reference = document1.allocate_attribute("idref", song_id.c_str());
+			song_artist->append_attribute(song_reference);
+			playlist_tag->append_node(song_artist);
+			break;
+		}
+		playlist_tag = playlist_tag->next_sibling();
+		attribute = playlist_tag->first_attribute();
+	}
+	ofstream file_stored("data.xml");
+	file_stored << "<?xml version=\"1.0\" encoding=\"utf-8\"?>" << endl;
+	file_stored << document1;
+	file_stored.close();
+}
+void callInsertSongInPlaylist(xml_document<> &document1)
+{
+	
+		xml_node<> *node = document1.first_node();
+		string song_id;
+		string song_name;
+		string playlist_id;
+		string playlist_name;
+		cout << "Enter artist name ";
+		cin.ignore();
+		getline(cin, playlist_name);
+		if (isPlaylist(playlist_name,node))
+		{
+			playlist_id = findPlaylistId(playlist_name, node);
+			cout << "Enter song name ";
+			getline(cin, song_name);
+			if (isSong(song_name, node))
+			{
+				song_id = findSongId(song_name, node);
+				insertSongInPlaylist(document1, playlist_id, song_id);
+				cout << "\nSong added in the artist ";
+			}
+			else
+			{
+				cout << "Song not found try again";
+			}
+		}
+		else
+		{
+			cout << "Playlist not found try again";
+		}
+	
+}
+void callInsertArtistInSong(xml_document<>&document1)
+{
+	xml_node<> *node = document1.first_node();
+	string song_id;
+	string song_name;
+	string artist_id;
+	string artist_name;
+	cout << "Enter artist name ";
+	cin.ignore();
+	getline(cin, artist_name);
+	if (isPlaylist(artist_name, node))
+	{
+		artist_id = findArtistId(artist_name, node);
+		cout << "Enter song name ";
+		getline(cin, song_name);
+		if (isSong(song_name, node))
+		{
+			song_id = findSongId(song_name, node);
+			insertArtistInSong(document1, artist_id, song_id);
+			cout << "\nSong added in the artist ";
+		}
+		else
+		{
+			cout << "Song not found try again";
+		}
+	}
+	else
+	{
+		cout << "Artist not found try again";
+	}
+}
+void callInsertAlbumInSong(xml_document<>&document1)
+{
+	xml_node<> *node = document1.first_node();
+	string song_id;
+	string song_name;
+	string album_id;
+	string album_name;
+	cout << "Enter artist name ";
+	cin.ignore();
+	getline(cin, album_name);
+	if (isPlaylist(album_name, node))
+	{
+		album_id = findAlbumId(album_name, node);
+		cout << "Enter song name ";
+		getline(cin, song_name);
+		if (isSong(song_name, node))
+		{
+			song_id = findSongId(song_name, node);
+			insertArtistInSong(document1, album_id, song_id);
+			cout << "\nSong added in the artist ";
+		}
+		else
+		{
+			cout << "Song not found try again";
+		}
+	}
+	else
+	{
+		cout << "Album not found try again";
+	}
 }
 void main()
 {
@@ -488,8 +925,11 @@ void main()
 		xml_node<> *node = document.first_node();
 		int choice = 0;
 		cout << "\n\n1.Display particular song details\n2.Display particular artist details\n3.Display particular album details\n4.Display particular playlist details" ;
-		cout << "\n5.Insert song\n6.Create new artist\n7.create new album\n8.create new playlist";
-		cout << "\n9.Display all songs\n10.display all artists\n11.display all albums\n12.display all playlists\n0.Exit\nEnter your choice ";
+		cout << "\n5.Insert new song\n6.Create new artist\n7.create new album\n8.create new playlist";
+		cout << "\n9.Insert song in artist\n10.Insert song in album\n11.Insert song in playlist";
+		cout << "\n12.Insert artist in song\n13.Insert album in song ";
+		cout << "\n14.Display all songs\n15.display all artists\n16.display all albums\n17.display all playlists ";
+		cout << "\n0.Exit\nEnter your choice ";
 		choice = validChoice();
 		switch (choice)
 		{
@@ -518,27 +958,42 @@ void main()
 			}
 			break;
 		case 5:
-			insertSong(document);
+			createSong(document);
 			break;
 		case 6:
-			insertArtist(document);
+			createArtist(document);
 			break;
 		case 7:
-			insertAlbum(document);
+			createAlbum(document);
 			break;
 		case 8:
-			insertPlaylist(document);
+			createPlaylist(document);
 			break;
 		case 9:
-			diplayAllSongs(node);
+			callInsertSongInArtist(document);
 			break;
 		case 10:
-			displayAllArtists(node);
+			callInsertSongInAlbum(document);
 			break;
 		case 11:
-			displayAllAlbums(node);
+			callInsertSongInPlaylist(document);
 			break;
 		case 12:
+			callInsertArtistInSong(document);
+			break;
+		case 13:
+			callInsertAlbumInSong(document);
+			break;
+		case 14:
+			diplayAllSongs(node);
+			break;
+		case 15:
+			displayAllArtists(node);
+			break;
+		case 16:
+			displayAllAlbums(node);
+			break;
+		case 17:
 			displayAllPlaylists(node);
 			break;
 		case 0:

@@ -10,20 +10,18 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="song_name" type="xs:string" />
-                    <xs:element name="artist_idref">
+                    <xs:element maxOccurs="unbounded" name="artist_idref">
                       <xs:complexType>
-                        <xs:attribute name="idref" type="xs:IDREF" use="optional" />
-                        <xs:attribute name="idrefs" type="xs:IDREFS" use="optional" />
+                        <xs:attribute name="idref" type="xs:string" use="required" />
                       </xs:complexType>
                     </xs:element>
-                    <xs:element name="album_idref">
+                    <xs:element maxOccurs="unbounded" name="album_idref">
                       <xs:complexType>
-                        <xs:attribute name="idrefs" type="xs:IDREFS" use="optional" />
-                        <xs:attribute name="idref" type="xs:IDREF" use="optional" />
+                        <xs:attribute name="idref" type="xs:string" use="required" />
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="id" type="xs:ID" use="required" />
+                  <xs:attribute name="id" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -36,18 +34,18 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="artist_name" type="xs:string" />
-                    <xs:element minOccurs="0" name="songOfArtist">
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="songOfArtist">
                       <xs:complexType>
-                        <xs:attribute name="idrefs" type="xs:IDREFS" use="required" />
+                        <xs:attribute name="idref" type="xs:string" use="required" />
                       </xs:complexType>
                     </xs:element>
-                    <xs:element minOccurs="0" name="songsOfArtist">
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="songsOfArtist">
                       <xs:complexType>
-                        <xs:attribute name="idrefs" type="xs:IDREFS" use="required" />
+                        <xs:attribute name="idref" type="xs:string" use="required" />
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="id" type="xs:ID" use="required" />
+                  <xs:attribute name="id" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -60,13 +58,13 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="album_name" type="xs:string" />
-                    <xs:element name="songsOfAlbum">
+                    <xs:element maxOccurs="unbounded" name="songsOfAlbum">
                       <xs:complexType>
-                        <xs:attribute name="idrefs" type="xs:IDREFS"  use="required" />
+                        <xs:attribute name="idref" type="xs:string" use="required" />
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="id" type="xs:ID" use="required" />
+                  <xs:attribute name="id" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -79,13 +77,13 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="playlist_name" type="xs:string" />
-                    <xs:element name="songsOfPlaylist">
+                    <xs:element maxOccurs="unbounded" name="songsOfPlaylist">
                       <xs:complexType>
-                        <xs:attribute name="idrefs" type="xs:IDREFS" use="required" />
+                        <xs:attribute name="idref" type="xs:string" use="required" />
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="id" type="xs:ID" use="required" />
+                  <xs:attribute name="id" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>

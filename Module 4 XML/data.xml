@@ -5,6 +5,7 @@
 			<song_name>taxi taxi</song_name>
 			<artist_idref idref="artist2"/>
 			<album_idref idref="album1"/>
+      <album_idref idref="album2"/>
 		</song>
 		<song id="song2">
 			<song_name>vennilave</song_name>
@@ -52,13 +53,13 @@
 			<artist_idref idref="artist1"/>
 			<album_idref idref="album3"/>
 		</song>
-		<song id="song10">
-			<song_name>showkali</song_name>
-			<artist_idref idref="artist1"/>
-			<artist_idref idref="artist2"/>
-			<album_idref idref="album2"/>
-		</song>
-	
+    <song id="song10">
+      <song_name>showkali</song_name>
+      <artist_idref idref="artist1"/>
+      <artist_idref idref="artist2"/>
+      <album_idref idref="album2"/>
+      <album_idref idref="album4"/>
+    </song>
 	</songs>
 	<artists>
 		<artist id="artist1">
@@ -76,6 +77,7 @@
 			<songOfArtist idref="song7"/>
 			<songOfArtist idref="song8"/>
 			<songOfArtist idref="song10"/>
+		
 		</artist>
 		<artist id="artist3">
 			<artist_name>anirudh</artist_name>
@@ -104,12 +106,17 @@
 			<songsOfAlbum idref="song5"/>
 			<songsOfAlbum idref="song6"/>
 			<songsOfAlbum idref="song10"/>
+		
 		</album>
 		<album id="album3">
 			<album_name>rock</album_name>
 			<songsOfAlbum idref="song2"/>
 			<songsOfAlbum idref="song8"/>
 			<songsOfAlbum idref="song9"/>
+		</album>
+		<album id="album4">
+			<album_name>gowtham</album_name>
+			<songsOfAlbum idref="song10"/>
 		</album>
 	</albums>
 	<playlists>
