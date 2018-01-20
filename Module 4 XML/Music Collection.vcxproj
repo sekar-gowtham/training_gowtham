@@ -95,6 +95,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Read.cpp" />
+    <ClCompile Include="Write.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Read.h" />
+    <ClInclude Include="Write.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
