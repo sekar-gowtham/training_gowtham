@@ -5,7 +5,6 @@
 			<song_name>taxi taxi</song_name>
 			<artist_idref idref="artist2"/>
 			<album_idref idref="album1"/>
-			<album_idref idref="album2"/>
 		</song>
 		<song id="song2">
 			<song_name>vennilave</song_name>
