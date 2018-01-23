@@ -145,7 +145,8 @@ void main()
 		ReadDb read;
 		while (1)
 		{
-			cout << "\n1.Display all songs\n2.Display all Artist\n3.Display all albums\nEnter your choice ";
+			cout << "\n\n1.Display all songs\n2.Display all Artist\n3.Display all albums\n4.Display all playlist\n5.Display Particular Song\n6.Display Particular Artist";
+			cout << "\n7.Display particular album\n8.Display particular playlist\nEnter your choice ";
 			choice2 = validChoice();
 			switch (choice2)
 			{
@@ -154,6 +155,24 @@ void main()
 				break;
 			case 2:
 				read.displayAllArtist();
+				break;
+			case 3:
+				read.displayAllAlbum();
+				break;
+			case 4:
+				read.displayAllPlaylist();
+				break;
+			case 5:
+				read.displaySongDetails();
+				break;
+			case 6:
+				read.displayArtistDetails();
+				break;
+			case 7:
+				read.displayAlbumDetails();
+				break;
+			case 8:
+				read.displayPlaylistDetails();
 				break;
 			case 0:
 				exit(0);
