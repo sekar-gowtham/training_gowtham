@@ -24,8 +24,8 @@ public:
 	string findArtistId(string artist_name, xml_node<> *node);
 	string findAlbumId(string album_name, xml_node<> *node);
 	string findPlaylistId(string playlist_name, xml_node<> *node1);
-	void insertSongInArtist(xml_document<> &document1, string song_id, string artist_id);
-	void insertSongInAlbum(xml_document<> &document1, string song_id, string album_id);
+	void insertSongInArtist(xml_document<> &document1, string song_id, string artist_id,int);
+	void insertSongInAlbum(xml_document<> &document1, string song_id, string album_id,int);
 	void insertSongInPlaylist(xml_document<> &document1, string playlist_id, string song_id);
 	void callInsertSongInArtist(xml_document<> &document1);
 	void callInsertSongInPlaylist(xml_document<> &document1);
@@ -34,8 +34,8 @@ public:
 	void createArtist(xml_document<> &document1);
 	void createAlbum(xml_document<> &document1);
 	void createPlaylist(xml_document<> &document1);
-	void insertArtistInSong(xml_document<> &document1, string artistId, string song_id);
-	void insertAlbumInSong(xml_document<> &document1, string albumId, string song_id);	
+	void insertArtistInSong(xml_document<> &document1, string artistId, string song_id,int);
+	void insertAlbumInSong(xml_document<> &document1, string albumId, string song_id,int);	
 	void callInsertArtistInSong(xml_document<>&document1);
 	void callInsertAlbumInSong(xml_document<>&document1);
 };
