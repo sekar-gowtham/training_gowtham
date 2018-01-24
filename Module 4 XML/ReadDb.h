@@ -13,8 +13,6 @@ class ReadDb
 private:
 	SQLHANDLE sqlConnHandle=NULL;
 	SQLHANDLE sqlStmtHandle=NULL;
-	//SQLHANDLE sqlConnHandle1 = NULL;
-	//SQLHANDLE sqlStmtHandle1 = NULL;
 	SQLHANDLE sqlEnvHandle;
 	SQLWCHAR retconstring[SQL_RETURN_CODE_LEN];
 
@@ -29,6 +27,8 @@ public:
 	void displayArtistDetails();
 	void displayAlbumDetails();
 	void displayPlaylistDetails();
+
+
 
 };
 

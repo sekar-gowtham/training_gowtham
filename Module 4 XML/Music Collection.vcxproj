@@ -98,11 +98,13 @@
     <ClCompile Include="Read.cpp" />
     <ClCompile Include="ReadDb.cpp" />
     <ClCompile Include="Write.cpp" />
+    <ClCompile Include="WriteDb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Read.h" />
     <ClInclude Include="ReadDb.h" />
     <ClInclude Include="Write.h" />
+    <ClInclude Include="WriteDb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

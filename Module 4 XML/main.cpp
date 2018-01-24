@@ -13,6 +13,7 @@
 #include "Read.h"
 #include "Write.h"
 #include "ReadDb.h"
+#include "WriteDb.h"
 #undef max
 using namespace std;
 using namespace rapidxml;
@@ -39,7 +40,7 @@ int validChoice()
 void main()
 {
 	int choice;
-	cout << "1.Read and write in XML \n2.Read and write in Database ";
+	cout << "1.Read and write in XML \n2.Read and write in Database \n0.Exit";
 	choice = validChoice();
 	if (choice == 1)
 	{
@@ -143,10 +144,13 @@ void main()
 	{
 		int choice2 = 0;
 		ReadDb read;
+		WriteDb write;
 		while (1)
 		{
 			cout << "\n\n1.Display all songs\n2.Display all Artist\n3.Display all albums\n4.Display all playlist\n5.Display Particular Song\n6.Display Particular Artist";
-			cout << "\n7.Display particular album\n8.Display particular playlist\nEnter your choice ";
+			cout << "\n7.Display particular album\n8.Display particular playlist\n9.Insert new song\n10.Create new album\n11.Create new Artist\n12.Create new Playlist ";
+			cout << "\n13.Insert song in Artist\n14.Insert song in playlist\n15.Update song name\n16.Update artist name\n17.Update album name\n18.update playlist name";
+			cout << "\n19.Delete a Song \n0.Enter your choice ";
 			choice2 = validChoice();
 			switch (choice2)
 			{
@@ -174,11 +178,43 @@ void main()
 			case 8:
 				read.displayPlaylistDetails();
 				break;
+			case 9:
+				write.insertSong();
+				break;
+			case 10:
+				write.createAlbum();
+				break;
+			case 11:
+				write.createArtist();
+				break;
+			case 12:
+				write.createPlaylist();
+				break;
+			case 13:
+				write.insertSongInArtist();
+				break;
+			case 14:
+				write.insertSongInPlaylist();
+				break;
+			case 15:
+				write.updateSongName();
+				break;
+			case 16:
+				write.updateArtistName();
+				break;
+			case 17:
+				write.updateAlbumName();
+				break;
+			case 18:
+				write.updatePlaylistName();
+				break;
+			case 19:
+				write.deleteSong();
+				break;
 			case 0:
 				exit(0);
 			default:
 				cout << "\nEnter valid choice ";
-
 			}
 		}
 

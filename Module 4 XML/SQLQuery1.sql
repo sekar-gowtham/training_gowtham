@@ -22,7 +22,7 @@ song_album on song_album.song_id=Song_Table.song_id join
 Album_Table on Album_Table.album_id=song_album.album_id
 order by Album_Table.album_name , Song_Table.song_name
 */
---Display all plylist
+--Display all playlist
 /*select Playlist_Table.playlist_name,Song_Table.song_name
 from Song_Table join
 song_playlist on song_playlist.song_id=Song_Table.song_id join
@@ -58,11 +58,18 @@ Album_Table on Album_Table.album_id=song_album.album_id --join
 where Album_Table.album_name='hiphop'
 order by Album_Table.album_name , Song_Table.song_name
 */
---Display particular playlist
+/*--Display particular playlist
 select Playlist_Table.playlist_name,Song_Table.song_name
 from Song_Table join
 song_playlist on song_playlist.song_id=Song_Table.song_id join
 Playlist_Table on Playlist_Table.playlist_id=song_playlist.playlist_id
 where Playlist_Table.playlist_name='favourite'
 order by Playlist_Table.playlist_name,Song_Table.song_name
+*/
+--Insert a song 
+--insert into Song_Table(song_name) values ('kkkkk')
 
+--select Song_Table.song_id from Song_Table where Song_Table.song_name='nanbane'
+--select album_id from Album_Table where album_name='rock'
+
+--update song name
