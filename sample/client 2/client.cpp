@@ -22,22 +22,24 @@ int main()
 	char buffer1[1024];
 	char buffer[1024] = "hi from client 2";
 
-　
-　
-	send(server, buffer, sizeof(buffer), 0);
-	cout << "Message sent!" << endl;
-	recv(server, buffer1, sizeof(buffer1), 0);
-	cout << "message received " << buffer1 << endl;
+
+
+	//send(server, buffer, sizeof(buffer), 0);
+	//cout << "Message sent!" << endl;
+	//recv(server, buffer1, sizeof(buffer1), 0);
+	//cout << "message received " << buffer1 << endl;
+	
+
 	while (1)
 	{
-		cout << "\nenter ";
+		cout << "Enter msg ";
 		cin >> buffer;
 		send(server, buffer, sizeof(buffer), 0);
 		cout << "Message sent!" << endl;
+		recv(server, buffer1, sizeof(buffer1), 0);
+		cout << "message received " << buffer1 << endl;
 	}
 
-　
-　
 	//closesocket(server);
 	WSACleanup();
 	cout << "Socket closed." << endl << endl;
@@ -45,3 +47,4 @@ int main()
 	cin.ignore(1000, '\n');
 
 }
+
