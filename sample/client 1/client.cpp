@@ -1,4 +1,4 @@
-#define _WINSOCK_DEPRECATED_NO_WARNINGS
+﻿#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #include <iostream>
 #include <winsock2.h>
  
@@ -24,18 +24,22 @@ int main()
 	
 
 	
-		send(server, buffer, sizeof(buffer), 0);
+	/*	send(server, buffer, sizeof(buffer), 0);
 		cout << "Message sent!" << endl;
 		recv(server, buffer1, sizeof(buffer1), 0);
-		cout << "message received " << buffer1 << endl;
+		cout << "message received " << buffer1 << endl;*/
+			
 		while (1)
 		{
-			cout << "\nenter ";
+			cout << "Enter msg ";
 			cin >> buffer;
 			send(server, buffer, sizeof(buffer), 0);
 			cout << "Message sent!" << endl;
+			recv(server, buffer1, sizeof(buffer1), 0);
+			cout << "message received " << buffer1 << endl;
 		}
 		
+	
 		
 	
 		
@@ -47,3 +51,4 @@ int main()
 	cin.ignore(1000, '\n');
 
 }
+
