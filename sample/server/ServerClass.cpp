@@ -3,23 +3,23 @@
 
 ServerClass::ServerClass()
 {
-	
+
 }
 
 
 ServerClass::~ServerClass()
 {
 }
-void ServerClass::create_game(SOCKET client)
-{
-	//
-}
-void ServerClass::game_detail(SOCKET client)
-{
-	// get data from DB and send to UI
-
-}
-void ServerClass::receive_message(SOCKET client)
+//void ServerClass::create_game(SOCKET client)
+//{
+//	//
+//}
+//void ServerClass::game_detail(SOCKET client)
+//{
+//	// get data from DB and send to UI
+//
+//}
+void ServerClass::receive_message(SOCKET client,int GameId)
 {
 	char buffer[1024];
 	char buffer1[1024] = "hi how r u";
@@ -27,32 +27,13 @@ void ServerClass::receive_message(SOCKET client)
 	string TagName;
 	while (ReceivedBytes != -1)
 	{
+
 		ReceivedBytes = recv(client, buffer, sizeof(buffer), 0);
 		if (ReceivedBytes > 0);
 		{
 			cout << "\nmessage received " << buffer;
-			document.parse<0>(&buffer[0]);
-			xml_node<> *node = document.first_node();
-			xml_node<> *node1 = node->first_node(); 
-			TagName = node1->name();
-			if (TagName == "requestgamedetails")
-			{
-				cout << "\nuser requested game detail";
-				game_detail(client);
-			}
-			else if (TagName == "creategame")
-			{
-				cout << "\nuser send create game ";
-				create_game(client);
-			}
-			else if (TagName == "joingame")
-			{
-				cout << "\nuser send join game ";
-			}
-
-
-
-
+			cout << "\nEnter ";
+			cin >> buffer1;
 			send(client, buffer1, sizeof(buffer1), 0);
 		}
 	}
@@ -86,7 +67,13 @@ void ServerClass::accept_connection()
 		if ((client[ClientCount] = accept(server, (SOCKADDR *)&clientAddr, &clientAddrSize)) != INVALID_SOCKET)
 		{
 			cout << "Client connected!" << endl;
-			receive[ClientCount] = thread(&ServerClass::receive_message,this, client[ClientCount]);
+			//recv(client[ClientCount], buffer, sizeof(buffer), 0);
+		
+				//create game id
+				//GameId++;
+				receive[ClientCount] = thread(&ServerClass::receive_message, this, client[ClientCount],GameId);
+			
+
 			memset(buffer, 0, sizeof(buffer));
 			ClientCount++;
 		}
